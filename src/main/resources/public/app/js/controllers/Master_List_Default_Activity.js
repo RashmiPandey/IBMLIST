@@ -35,11 +35,26 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			$location.path('/ListTasks-en');
 		}
 		
+		$scope.editRow = function(){
+			
+		}
+		
+		$scope.deleteRow = function(){
+			
+		}
+
+		
 		$scope.links ='<div>' +
         '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listname}}</a>' +
         '</div>'
 		
-		
+        $scope.actionButtons='<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
+		'<i class="fa"></i>'+
+		'edit</button>'+
+		'<button class="btn btn-danger btn-sm" '+
+			'ng-click="grid.appScope.deleteRow(grid,row)" style="margin:2px;">'+
+			'<i class="fa fa-trash"></i>'+
+		'</button></div>';
 		
         $scope.create = function () {
 
@@ -71,7 +86,8 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
         };
 
 		$scope.gridOptions = {
-		enableRowSelection: true,
+		rowHeight:40,
+		enableRowSelection: false,
 		enableSelectAll: false
 		};
 		function handle_search_result(search_result){
@@ -82,7 +98,8 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		{ displayName: 'S.No.', name: 'id'},
 		{ displayName: 'Title', name: 'title'},
 		{ displayName: 'Description', name: 'description'},
-		{ field: 'href',displayName: 'Type', name: 'listname',cellTemplate: $scope.links}
+		{ field: 'href',displayName: 'Type', name: 'listname',cellTemplate: $scope.links},
+		{ name: 'Action', cellTemplate: $scope.actionButtons}
 		];
 		
 		var deferred = $q.defer();

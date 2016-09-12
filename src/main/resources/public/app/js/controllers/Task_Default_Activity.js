@@ -91,6 +91,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			  });
 		}
         
+       
         $scope.getStatusList();
         $scope.getPriorityList();
         $scope.getAssigns();
@@ -104,7 +105,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
         }
         
         $scope.changedassign=function(item){
-        	$scope.Task.taskowner=item;
+        	alert(angular.toJson(item.id));
+        	$scope.Task.taskowner=item.id;
         }
 
 		$scope.gridOptions = {
@@ -115,24 +117,39 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		$scope.gridOptions.data = search_result;
 		}*/
 
+		$scope.editRow = function(){
+			
+		}
+		
+		$scope.deleteRow = function(){
+			
+		}
+		
+		
+		$scope.actionButtons='<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
+		'<i class="fa"></i>'+
+		'edit</button>'+
+		'<button class="btn btn-danger btn-sm" '+
+			'ng-click="grid.appScope.deleteRow(grid,row)" style="margin:2px;">'+
+			'<i class="fa fa-trash"></i>'+
+		'</button></div>';
+		
 		$scope.gridOptions.columnDefs = [
-		{ displayName: 'S.No',name:"sno"},
+		{ displayName: 'S.No',name:"id"},
 		{ displayName: 'Title',name:"title"},
-		{ displayName: 'Group Name',name:"grpname"},
-		{ displayName: 'Description',name:"desc"},
-		{ displayName: 'Assigned To',name:"asiignedto"},
-		{ displayName: 'Priority',name:"priority"},
-		{ displayName: 'Completion Percentage',name:"cp"},
-		{ displayName: 'Status',name:"status"},
-		{ displayName: 'Edit',name:"edit"},
-		{ displayName: 'Delete',name:"delete"}
+		{ displayName: 'Description',name:"description"},
+		{ displayName: 'Assigned To',name:"taskowner"},
+		{ displayName: 'Priority',name:"task_priority"},
+		{ displayName: '% Completed',name:"completionpercentage"},
+		{ displayName: 'Status',name:"task_status"},
+		{ name: 'Action',cellTemplate: $scope.actionButtons}
 		];
 		
 		var deferred = $q.defer();
 		 $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_Task')
 		  .success(function(response) {
+			  console.log("TASKS  "+angular.toJson(response))
 			  $scope.gridOptions.data=response;
-			  alert('Operation SaveMaster_List successful');
 		  	 deferred.resolve(response);
 		  }).error(function(err) {
 		  	 alert('You got' + err + 'error');
@@ -153,10 +170,10 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		});
 		
 		$scope.create= function(){
-			
+			//alert("data to send" + angular.toJson($scope.Task));
 			var deferred = $q.defer();
 			  $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
-				  alert('Operation SaveMaster_List successful');
+				  alert('Task Saved successfully');
 				  $scope.Task={};
 				  $scope.selectedStatus='';
 				  $scope.selectedassign='';

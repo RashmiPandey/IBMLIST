@@ -2,7 +2,6 @@ package com.ListProject.domain.core;
 
 import javax.persistence.Transient;
 
-
 /**
  *
  * @author Geppetto Generated Code</br>
@@ -29,90 +28,68 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
-
 @Entity
 
-@Table(name="master_list")
+@Table(name = "master_list")
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-@ApiModel( value = "Master_List", description = "Master_List" )
+@ApiModel(value = "Master_List", description = "Master_List")
 @JsonInclude(Include.NON_NULL)
-public class Master_List  {
+public class Master_List {
 
+	@ApiModelProperty(value = "The standard id attribute - System generated", required = true)
+	@Id
+	@GeneratedValue
+	long Id;
 
-	@ApiModelProperty( value = "The standard id attribute - System generated", required = true )
-	@Id 
- 	@GeneratedValue
- 	long Id;
-
-
-
-	@ApiModelProperty( value = "created date", required = true )
+	@ApiModelProperty(value = "created date", required = true)
 	@Column
- 	String Created_date;
+	String Created_date;
 
-
-
-	@ApiModelProperty( value = "created by value", required = true )
+	@ApiModelProperty(value = "created by value", required = true)
 	@Column
- 	long Created_by;
+	long Created_by;
 
-
-
-	@ApiModelProperty( value = "updated date", required = true )
+	@ApiModelProperty(value = "updated date", required = true)
 	@Column
- 	String Updated_date;
+	String Updated_date;
 
-
-
-	@ApiModelProperty( value = "updated by value", required = true )
+	@ApiModelProperty(value = "updated by value", required = true)
 	@Column
- 	long Updated_by;
+	long Updated_by;
 
-
-
-	@ApiModelProperty( value = "description", required = true )
+	@ApiModelProperty(value = "description", required = true)
 	@Column
- 	String Title;
+	String Title;
 
-
-
-	@ApiModelProperty( value = "description", required = true )
+	@ApiModelProperty(value = "description", required = true)
 	@Column
- 	String Description;
+	String Description;
 
-
-
-	@ApiModelProperty( value = "description", required = true )
+	@ApiModelProperty(value = "description", required = true)
 	@Column
- 	long Listid;
+	long Listid;
 
-
-
-	@ApiModelProperty( value = "Parent noun", required = false )
+	@ApiModelProperty(value = "Parent noun", required = false)
 	@Transient
- 	ListType listtype;
+	ListType listtype;
 
-
-	@ApiModelProperty( value = "Parent noun", required = true )
+	@ApiModelProperty(value = "Parent noun", required = true)
 	@Column
- 	String listname;
+	String listname;
 
 	public String getListname() {
 		return listname;
 	}
 
-
 	public void setListname(String listname) {
 		this.listname = listname;
 	}
 
-
 	public void setId(long Id) {
 		this.Id = Id;
 	}
-
 
 	public long getId() {
 		return Id;
@@ -122,7 +99,6 @@ public class Master_List  {
 		this.Created_date = Created_date;
 	}
 
-
 	public String getCreated_date() {
 		return Created_date;
 	}
@@ -130,7 +106,6 @@ public class Master_List  {
 	public void setCreated_by(long Created_by) {
 		this.Created_by = Created_by;
 	}
-
 
 	public long getCreated_by() {
 		return Created_by;
@@ -140,7 +115,6 @@ public class Master_List  {
 		this.Updated_date = Updated_date;
 	}
 
-
 	public String getUpdated_date() {
 		return Updated_date;
 	}
@@ -148,7 +122,6 @@ public class Master_List  {
 	public void setUpdated_by(long Updated_by) {
 		this.Updated_by = Updated_by;
 	}
-
 
 	public long getUpdated_by() {
 		return Updated_by;
@@ -158,7 +131,6 @@ public class Master_List  {
 		this.Title = Title;
 	}
 
-
 	public String getTitle() {
 		return Title;
 	}
@@ -166,7 +138,6 @@ public class Master_List  {
 	public void setDescription(String Description) {
 		this.Description = Description;
 	}
-
 
 	public String getDescription() {
 		return Description;
@@ -176,24 +147,16 @@ public class Master_List  {
 		this.Listid = Listid;
 	}
 
-
 	public long getListid() {
 		return Listid;
 	}
-
 
 	public ListType getListtype() {
 		return listtype;
 	}
 
-
 	public void setListtype(ListType listtype) {
 		this.listtype = listtype;
 	}
-
-
-
-
-
 
 }
