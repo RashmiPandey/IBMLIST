@@ -37,7 +37,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		
 		$scope.links = '<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.gotoTasks(grid,row)" style="margin:2px;">' +
 		'<i class="fa"></i>'+
-		'Tasks</button>';
+		'{{row.entity.listname}}</button>';
 		
         $scope.create = function () {
 
@@ -54,6 +54,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			  $scope.Master_List='';
 			  $scope.selectedListType='';
 			  $scope.getTypeList();
+			  $location.path('/DisplayLists-en');
 		  	 deferred.resolve(response);
 		  }).error(function(err) {
 		  	 alert('You got' + err + 'error');
@@ -66,9 +67,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		  //this is where the transition code goes
 
 		  //this is where the end code goes 
-
-
-
         };
 
 		$scope.gridOptions = {
@@ -80,18 +78,23 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		}
 
 		$scope.gridOptions.columnDefs = [
-		{ displayName: 'S.No.', name: 'sno'},
+		{ displayName: 'S.No.', name: 'id'},
 		{ displayName: 'Title', name: 'title'},
 		{ displayName: 'Description', name: 'description'},
-		{ field: 'href',displayName: 'Type', name: 'type',cellTemplate: $scope.links}
+		{ field: 'href',displayName: 'Type', name: 'listname',cellTemplate: $scope.links}
 		];
 		
-		$scope.myData = [{sno: 1,title:"Work List 1",description:"lists of work",type:"app/views/en/ListTasks-en.html"},
-		                 {sno: 2,title:"work list 2",description:"lists of work",type:"TASKS"},
-		                 {sno: 3,title:"Anouncement lists",description:"lists of work",type:"ANOUNCEMENTS"},
-		                 {sno: 4,title:"Link lists",description:"lists of work",type:"LINKS"}
-	                     ];
-		$scope.gridOptions.data = $scope.myData;
+		var deferred = $q.defer();
+		 $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/get_all_list_data')
+		  .success(function(response) {
+			  $scope.gridOptions.data=response;
+			  alert('Operation SaveMaster_List successful');
+		  	 deferred.resolve(response);
+		  }).error(function(err) {
+		  	 alert('You got' + err + 'error');
+		  	 deferred.reject(err);
+		  });
+
 		
 		$scope.$on('$viewContentLoaded', function(event) {
 			var biggestHeight = 0;

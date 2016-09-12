@@ -30,7 +30,9 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		priority : ''
 		};
 
-
+		$scope.statuses='';
+		$scope.priorities='';
+		$scope.assigns='';
 		$scope.gotoCreateTask = function(){
 			$location.path("/TaskCreate-en");
 		}
@@ -45,7 +47,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 
 		  //this is where the post code goes
 		  var deferred = $q.defer();
-		  $http.post('http://localhost/ListProject_10030/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
+		  $http.post('http://localhost/ListProject_10030/Task_Default_Activity/create_Task', $scope.Task).success(function(response) {
 		  	 alert('Operation SaveTask successful');
 		  	 deferred.resolve(response);
 		  }).error(function(err) {
@@ -64,8 +66,57 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 
         };
 
-
-
+        $scope.getStatusList= function(){
+			 var deferred = $q.defer();
+			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_status_list')
+			  .success(function(response) {
+				  $scope.statuses=response;
+			  	 deferred.resolve(response);
+			  }).error(function(err) {
+			  	 alert('You got' + err + 'error');
+			  	 deferred.reject(err);
+			  });
+		}
+        
+        $scope.getPriorityList= function(){
+			 var deferred = $q.defer();
+			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_priority_list')
+			  .success(function(response) {
+				  $scope.priorities=response;
+			  	 deferred.resolve(response);
+			  }).error(function(err) {
+			  	 alert('You got' + err + 'error');
+			  	 deferred.reject(err);
+			  });
+		}
+        
+        $scope.getAssigns= function(){
+			 var deferred = $q.defer();
+			  $http.get('http://localhost:8080/ListProject_10030/TaskGroup_Default_Activity/get_all_users')
+			  .success(function(response) {
+				$scope.assigns=response;
+			  	 deferred.resolve(response);
+			  }).error(function(err) {
+			  	 alert('You got' + err + 'error');
+			  	 deferred.reject(err);
+			  });
+		}
+        
+        $scope.getStatusList();
+        $scope.getPriorityList();
+        $scope.getAssigns();
+        
+        $scope.changedstatus=function(item){
+			$scope.Task.status=item;
+		 } 
+        
+        $scope.changedpriority=function(item){
+        	$scope.Task.priority=item;
+        }
+        
+        $scope.changedassign=function(item){
+        	$scope.Task.taskowner=item;
+        }
 
 		$scope.gridOptions = {
 		enableRowSelection: true,

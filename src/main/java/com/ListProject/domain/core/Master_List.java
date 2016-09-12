@@ -32,7 +32,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 
 @Entity
 
-@Table(name="Master_List")
+@Table(name="master_list")
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
@@ -96,7 +96,7 @@ public class Master_List  {
 
 
 	@ApiModelProperty( value = "Parent noun", required = true )
-	@Transient
+	@Column
  	String listname;
 
 	public String getListname() {

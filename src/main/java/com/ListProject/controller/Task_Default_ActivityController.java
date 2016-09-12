@@ -1,6 +1,8 @@
 package com.ListProject.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -20,10 +22,15 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
 
+
+
+
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ListProject.Enums.ListTypeEnum;
+import com.ListProject.Enums.TaskPriority;
+import com.ListProject.Enums.TaskStatus;
 import com.ListProject.domain.core.Task;
-
 import com.ListProject.service.Task_Default_ActivityService;
 
 
@@ -192,7 +199,45 @@ public class Task_Default_ActivityController extends GpBaseController {
 
 	}
 
+	
+	@ApiOperation(value = "/get_status_list", httpMethod = "GET",
+			notes = "gets the list of statuses", 
+			response = TaskStatus.class)
+		    @ApiResponses(value = { 
+		        @ApiResponse(code = 200, message = "The request was fulfilled"),
+			    @ApiResponse(code = 404, message = "The server has not found anything matching the URI given"),
+			    @ApiResponse(code = 500, message = "Internal server error due to encoding the data"),
+			    @ApiResponse(code = 400, message = "Bad request due to decoding the data"),
+			    @ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
 
+			@RequestMapping(method = RequestMethod.GET,value = "/get_status_list" ,headers="Accept=application/json")
+		    @ResponseBody
+			public List<TaskStatus> get_status_list() throws Exception {
 
+				List<TaskStatus> status_list = Arrays.asList(TaskStatus.values());
 
+				return status_list;
+
+			}
+	
+	@ApiOperation(value = "/get_priority_list", httpMethod = "GET",
+			notes = "gets the list of statuses", 
+			response = TaskStatus.class)
+		    @ApiResponses(value = { 
+		        @ApiResponse(code = 200, message = "The request was fulfilled"),
+			    @ApiResponse(code = 404, message = "The server has not found anything matching the URI given"),
+			    @ApiResponse(code = 500, message = "Internal server error due to encoding the data"),
+			    @ApiResponse(code = 400, message = "Bad request due to decoding the data"),
+			    @ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
+
+			@RequestMapping(method = RequestMethod.GET,value = "/get_priority_list" ,headers="Accept=application/json")
+		    @ResponseBody
+			public List<TaskPriority> get_priority_list() throws Exception {
+
+				List<TaskPriority> priority = Arrays.asList(TaskPriority.values());
+
+				return priority;
+
+			}
+	
 }

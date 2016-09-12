@@ -18,45 +18,42 @@
 	<form class="form-horizontal" role="form">
 	<h1><label style="position: absolute;width: 459px;height: 35px;left: 121px;line-height: 35px;">Create Task</label>
 	</h1>
-	<div style="position: absolute;width: 200px;height: 37px;left: 320px;top: 135px;padding: 5px;">
+<!-- 	<div style="position: absolute;width: 200px;height: 37px;left: 320px;top: 135px;padding: 5px;">
 	<select>
 	<option value="1">Value 1</option>
 	<option value="2">Value 2</option>
 	<option value="3">Value 3</option>
 	<option value="4">Value 4</option>
 	</select>
-	</div>
-	<label style="position: absolute;width: 50px;height: 36px;left: 107px;top: 141px;line-height: 36px;">Task Group</label>
-	<input type="text" data-ng-model="Task.title" style="position: absolute;width: 204px;height: 34px;left: 320px;top: 189px;" class="form-control" />
+	</div> -->
+	<label style="position: absolute;width: 50px;height: 36px;left: 107px;top: 141px;line-height: 36px;"><!-- Task --> Group</label>
+	<input type="text" data-ng-model="Task.title" style="position: absolute;width: 204px;height: 34px;left: 320px;top: 144px;" class="form-control" />
 	<label style="position: absolute;width: 50px;height: 34px;left: 95px;top: 202px;line-height: 34px;">{{Task.title}}</label>
 	<label style="position: absolute;width: 54px;height: 34px;left: 107px;;top: 250px;line-height: 34px;">Description</label>
 	<input type="text" data-ng-model="Task.description" style="position: absolute;width: 200px;height: 34px;left: 321px;top: 252px;" class="form-control" />
 	<div style="position: absolute;width: 200px;height: 36px;left: 320px;top: 308px;padding: 5px;">
-	<select>
-	<option value="1">Value 1</option>
-	<option value="2">Value 2</option>
-	<option value="3">Value 3</option>
-	<option value="4">Value 4</option>
-	</select>
+	<select data-ng-model="selectedStatus"
+				ng-change="changedstatus(selectedStatus)"
+				data-ng-options="assign as assign.screename for assign in assigns">
+				<option value="">SELECT</option>
+			</select>
 	</div>
 	<label style="position: absolute;width: 79px;height: 36px;left: 107px;top: 308px;line-height: 36px;">Assign To</label>
 	<label style="position: absolute;width: 50px;height: 36px;left: 107px;top: 364px;line-height: 36px;">Status</label>
 	<div style="position: absolute;width: 200px;height: 34px;left: 320px;top: 369px;padding: 5px;">
-	<select>
-	<option value="1">Value 1</option>
-	<option value="2">Value 2</option>
-	<option value="3">Value 3</option>
-	<option value="4">Value 4</option>
-	</select>
+	<select data-ng-model="selectedStatus"
+				ng-change="changedstatus(selectedStatus)"
+				data-ng-options="status for status in statuses">
+				<option value="">SELECT</option>
+			</select>
 	</div>
 	<label style="position: absolute;width: 50px;height: 34px;left: 112px;top: 430px;line-height: 34px;">Priority</label>
 	<div style="position: absolute;width: 200px;height: 34px;left: 321px;top: 433px;padding: 5px;">
-	<select>
-	<option value="1">Value 1</option>
-	<option value="2">Value 2</option>
-	<option value="3">Value 3</option>
-	<option value="4">Value 4</option>
-	</select>
+	<select data-ng-model="selectedPriority"
+				ng-change="changedpriority(selectedPriority)"
+				data-ng-options="priority for priority in priorities">
+				<option value="">SELECT</option>
+			</select>
 	</div>
 	
 	<label style="position: absolute;width: 100px;height: 68px;left: 113px;top: 491px;line-height: 68px;">{{Task.completionpercentage}}</label>

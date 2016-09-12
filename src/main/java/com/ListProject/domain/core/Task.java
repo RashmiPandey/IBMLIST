@@ -94,7 +94,7 @@ public class Task  {
 
 	@ApiModelProperty( value = "description", required = true )
 	@Column
- 	String Taskowner;
+	GpUser Taskowner;
 
 
 
@@ -208,12 +208,12 @@ public class Task  {
 		return Description;
 	}
 
-	public void setTaskowner(String Taskowner) {
+	public void setTaskowner(GpUser Taskowner) {
 		this.Taskowner = Taskowner;
 	}
 
 
-	public String getTaskowner() {
+	public GpUser getTaskowner() {
 		return Taskowner;
 	}
 

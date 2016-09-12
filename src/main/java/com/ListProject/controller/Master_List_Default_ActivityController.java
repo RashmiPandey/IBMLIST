@@ -211,5 +211,24 @@ public class Master_List_Default_ActivityController extends GpBaseController {
 
 			}
 
+	@ApiOperation(value = "/get_all_list_data", httpMethod = "GET",
+			notes = "gets all the list data")
+		    @ApiResponses(value = { 
+		        @ApiResponse(code = 200, message = "The request was fulfilled"),
+			    @ApiResponse(code = 404, message = "The server has not found anything matching the URI given"),
+			    @ApiResponse(code = 500, message = "Internal server error due to encoding the data"),
+			    @ApiResponse(code = 400, message = "Bad request due to decoding the data"),
+			    @ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
 
+			@RequestMapping(method = RequestMethod.GET,value = "/get_all_list_data" ,headers="Accept=application/json")
+		    @ResponseBody
+			public List<Master_List> get_all_list_data() throws Exception {
+				ArrayList<Master_List> Master_List_list = new ArrayList<Master_List>();
+
+				Master_List_list = Master_List_Default_Activity_service.get_all_master_list();
+
+				return Master_List_list;
+			}
+	
+	
 }

@@ -160,10 +160,10 @@ public class Master_List_Default_ActivityService extends GpBaseService  {
 			ArrayList<Master_List> Master_List_list;
 
 			Master_List_list = Master_List_Default_Activity_dao.get_all_master_list();
-			for(Master_List Master_List : Master_List_list){
+			/*for(Master_List Master_List : Master_List_list){
 				Master_List.setListtype(ListType_Default_ActivityService.get_listtype_by_parent_id(Master_List.getId()));
 			}
-
+*/
 			return Master_List_list;
 
 		}catch(Exception e){
