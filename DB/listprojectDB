@@ -1,0 +1,201 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.1.50-community
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema listproject
+--
+
+CREATE DATABASE IF NOT EXISTS listproject;
+USE listproject;
+
+--
+-- Definition of table `gpauthority`
+--
+
+DROP TABLE IF EXISTS `gpauthority`;
+CREATE TABLE `gpauthority` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `authority` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gpauthority`
+--
+
+/*!40000 ALTER TABLE `gpauthority` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gpauthority` ENABLE KEYS */;
+
+
+--
+-- Definition of table `gpuser`
+--
+
+DROP TABLE IF EXISTS `gpuser`;
+CREATE TABLE `gpuser` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `accestype` varchar(255) DEFAULT NULL,
+  `firstName` varchar(255) DEFAULT NULL,
+  `languagepreference` varchar(255) DEFAULT NULL,
+  `lastName` varchar(255) DEFAULT NULL,
+  `lastaccess` datetime DEFAULT NULL,
+  `licenseid` varchar(255) DEFAULT NULL,
+  `middleName` varchar(255) DEFAULT NULL,
+  `mustresetpassword` varchar(255) DEFAULT NULL,
+  `newuser` bit(1) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `phonenumber` varchar(255) DEFAULT NULL,
+  `primaryemail` varchar(255) DEFAULT NULL,
+  `screenname` varchar(255) DEFAULT NULL,
+  `startdate` datetime DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gpuser`
+--
+
+/*!40000 ALTER TABLE `gpuser` DISABLE KEYS */;
+INSERT INTO `gpuser` (`id`,`accestype`,`firstName`,`languagepreference`,`lastName`,`lastaccess`,`licenseid`,`middleName`,`mustresetpassword`,`newuser`,`password`,`phonenumber`,`primaryemail`,`screenname`,`startdate`,`username`) VALUES 
+ (1,NULL,'Rashmi',NULL,NULL,NULL,NULL,NULL,NULL,0x01,NULL,NULL,'rashmis19oct@gmail.com',NULL,NULL,'RS'),
+ (2,NULL,'TEST',NULL,NULL,NULL,NULL,NULL,NULL,0x01,NULL,NULL,'test19oct@gmail.com',NULL,NULL,'TEST');
+/*!40000 ALTER TABLE `gpuser` ENABLE KEYS */;
+
+
+--
+-- Definition of table `gpuser_gpauthority`
+--
+
+DROP TABLE IF EXISTS `gpuser_gpauthority`;
+CREATE TABLE `gpuser_gpauthority` (
+  `GpUser_id` bigint(20) NOT NULL,
+  `roles_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`GpUser_id`,`roles_id`),
+  UNIQUE KEY `UK_qqk29t20hlrhy5v62t5jrxdkk` (`roles_id`),
+  CONSTRAINT `FK_c7kyumqvtqtl74s6ci1vkhywp` FOREIGN KEY (`GpUser_id`) REFERENCES `gpuser` (`id`),
+  CONSTRAINT `FK_qqk29t20hlrhy5v62t5jrxdkk` FOREIGN KEY (`roles_id`) REFERENCES `gpauthority` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `gpuser_gpauthority`
+--
+
+/*!40000 ALTER TABLE `gpuser_gpauthority` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gpuser_gpauthority` ENABLE KEYS */;
+
+
+--
+-- Definition of table `master_list`
+--
+
+DROP TABLE IF EXISTS `master_list`;
+CREATE TABLE `master_list` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `created_date` datetime DEFAULT NULL,
+  `created_by` bigint(19) NOT NULL DEFAULT '0',
+  `updated_date` datetime DEFAULT NULL,
+  `updated_by` bigint(19) NOT NULL DEFAULT '0',
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `listtype` varchar(255) DEFAULT NULL,
+  `Listid` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `master_list`
+--
+
+/*!40000 ALTER TABLE `master_list` DISABLE KEYS */;
+INSERT INTO `master_list` (`id`,`created_date`,`created_by`,`updated_date`,`updated_by`,`title`,`description`,`listtype`,`Listid`) VALUES 
+ (1,'2016-09-09 14:50:38',0,'2016-09-09 14:50:38',0,'list1','list1','TASK',0),
+ (2,'2016-09-12 22:10:03',0,'2016-09-12 22:10:03',0,'newlist','desc','LINKS',0);
+/*!40000 ALTER TABLE `master_list` ENABLE KEYS */;
+
+
+--
+-- Definition of table `task`
+--
+
+DROP TABLE IF EXISTS `task`;
+CREATE TABLE `task` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `created_date` datetime DEFAULT NULL,
+  `created_by` bigint(19) NOT NULL DEFAULT '0',
+  `updated_date` datetime DEFAULT NULL,
+  `updated_by` bigint(19) NOT NULL DEFAULT '0',
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `taskowner` bigint(19) unsigned DEFAULT NULL,
+  `duedate` date DEFAULT NULL,
+  `completionpercentage` bigint(19) DEFAULT NULL,
+  `attachment` mediumblob,
+  `groupid` bigint(19) DEFAULT NULL,
+  `task_priority` varchar(255) DEFAULT NULL,
+  `task_status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `task`
+--
+
+/*!40000 ALTER TABLE `task` DISABLE KEYS */;
+INSERT INTO `task` (`id`,`created_date`,`created_by`,`updated_date`,`updated_by`,`title`,`description`,`taskowner`,`duedate`,`completionpercentage`,`attachment`,`groupid`,`task_priority`,`task_status`) VALUES 
+ (1,'2016-09-12 20:24:02',0,'2016-09-12 20:24:02',0,'',NULL,1,'2016-09-17',0,'',0,'NORMAL','OPEN'),
+ (2,'2016-09-12 20:49:43',0,'2016-09-12 20:49:43',0,'dadsad','sadsad',0,'2016-09-30',0,'',0,'MEDIUM','OPEN'),
+ (3,'2016-09-12 21:31:32',0,'2016-09-12 21:31:32',0,'newtask','newtaskdesc',0,'2016-09-26',0,'',0,'NORMAL','OPEN'),
+ (4,'2016-09-12 21:42:56',0,'2016-09-12 21:42:56',0,'dddddddddddd','ffffffffffffffff',0,'2016-09-13',0,'',0,'NORMAL','OPEN'),
+ (5,'2016-09-12 21:45:32',0,'2016-09-12 21:45:32',0,'vvvvvvvvvvvv','vvvvvvvvvvv',2,'2016-09-13',0,'',0,'MEDIUM','OPEN'),
+ (6,'2016-09-12 21:59:13',0,'2016-09-12 21:59:13',0,'sadsadsasadsad','sadsad',1,'2016-09-21',0,'',0,'','BUSY');
+/*!40000 ALTER TABLE `task` ENABLE KEYS */;
+
+
+--
+-- Definition of table `taskgroup`
+--
+
+DROP TABLE IF EXISTS `taskgroup`;
+CREATE TABLE `taskgroup` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `created_date` datetime DEFAULT NULL,
+  `created_by` bigint(19) NOT NULL DEFAULT '0',
+  `updated_date` datetime DEFAULT NULL,
+  `updated_by` bigint(19) NOT NULL DEFAULT '0',
+  `groupid` bigint(19) DEFAULT NULL,
+  `groupname` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `taskgroup`
+--
+
+/*!40000 ALTER TABLE `taskgroup` DISABLE KEYS */;
+/*!40000 ALTER TABLE `taskgroup` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
