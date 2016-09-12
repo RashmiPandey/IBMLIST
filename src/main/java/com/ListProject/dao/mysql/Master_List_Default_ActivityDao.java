@@ -110,7 +110,7 @@ public class Master_List_Default_ActivityDao {
 					.setParameter("title", Master_List.getTitle())
 					.setParameter("description", Master_List.getDescription())
 					.setParameter("Listid", Master_List.getListid()).setParameter("listtype", Master_List.getListtype())
-					.setParameter("listname", Master_List.getListname())
+					.setParameter("listtype", Master_List.getListtype())
 					.setParameter("created_by", user == null ? 0 : user.getId())
 					.setParameter("updated_by", user == null ? 0 : user.getId())
 					.setParameter("updated_date", new Date()).setParameter("created_date", new Date());

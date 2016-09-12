@@ -33,7 +33,7 @@
 	<div style="position: absolute;width: 200px;height: 36px;left: 320px;top: 308px;padding: 5px;">
 	<select data-ng-model="selectedassign"
 				ng-change="changedassign(selectedassign)"
-				data-ng-options="assign.username for assign in assigns">
+				data-ng-options="assign.username for assign in assigns" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 	</div>
@@ -42,7 +42,7 @@
 	<div style="position: absolute;width: 200px;height: 34px;left: 320px;top: 369px;padding: 5px;">
 	<select data-ng-model="selectedStatus"
 				ng-change="changedstatus(selectedStatus)"
-				data-ng-options="status for status in statuses">
+				data-ng-options="status for status in statuses" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 	</div>
@@ -50,12 +50,12 @@
 	<div style="position: absolute;width: 200px;height: 34px;left: 321px;top: 433px;padding: 5px;">
 	<select data-ng-model="selectedPriority"
 				ng-change="changedpriority(selectedPriority)"
-				data-ng-options="priority for priority in priorities">
+				data-ng-options="priority for priority in priorities" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 	</div>
 	
-	<label style="position: absolute;width: 50px;height: 34px;left: 112px;top: 484px;line-height: 34px;">Due Date</label>
+	<label style="position: absolute;height: 34px;left: 112px;top: 484px;line-height: 34px;">Due Date</label>
 	<div style="position: absolute;width: 200px;height: 34px;left: 321px;top: 499px;padding: 5px;"> 
 			<input type="text"
 			uib-datepicker-popup data-ng-model="Task.duedate"
@@ -65,12 +65,12 @@
 			data-ng-click="openStartdate()" data-ng-change="getDate(DueDate)" />	</div>
 	
 	<label style="position: absolute;width: 100px;height: 68px;left: 113px;top: 545px;line-height: 68px;">% completed</label>
-	<label style="position: absolute;width: 209px;height: 34px;left: 311px;top: 562px;line-height: 34px;">{{Task.completionpercentage}}</label>
+	<input type="text" data-ng-model="Task.completionpercentage" style="position: absolute;width: 204px;height: 34px;left: 320px;top: 575px;" class="form-control" />
 	<div style="position: absolute;width: 958px;height: 36px;left: 104px;top: 610px;">
 		<hr>
 	</div>
-	<button type="submit" class="btn btn-primary" style="position: absolute;left: 602px;top: 646px;">CANCEL</button>
-	<button type="submit" class="btn btn-primary" data-ng-click="create()" style="position: absolute;width: 87px;top: 646px;">CREATE</button>
+	<button type="submit" class="btn btn-primary" style="position: absolute;left: 300px;top: 646px;" data-ng-click="goBack()">CANCEL</button>
+	<button type="submit" class="btn btn-primary" data-ng-click="create()" style="position: absolute;left: 113px;width: 87px;top: 646px;">CREATE</button>
 	</form>
 	</div>
 

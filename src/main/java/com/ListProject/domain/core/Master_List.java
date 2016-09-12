@@ -72,20 +72,8 @@ public class Master_List {
 	long Listid;
 
 	@ApiModelProperty(value = "Parent noun", required = false)
-	@Transient
-	ListType listtype;
-
-	@ApiModelProperty(value = "Parent noun", required = true)
 	@Column
-	String listname;
-
-	public String getListname() {
-		return listname;
-	}
-
-	public void setListname(String listname) {
-		this.listname = listname;
-	}
+	String listtype;
 
 	public void setId(long Id) {
 		this.Id = Id;
@@ -151,11 +139,11 @@ public class Master_List {
 		return Listid;
 	}
 
-	public ListType getListtype() {
+	public String getListtype() {
 		return listtype;
 	}
 
-	public void setListtype(ListType listtype) {
+	public void setListtype(String listtype) {
 		this.listtype = listtype;
 	}
 

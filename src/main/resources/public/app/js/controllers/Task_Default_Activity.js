@@ -52,9 +52,9 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		$scope.gotoCreateTask = function(){
 			$location.path("/TaskCreate-en");
 		}
-
-        
-
+		$scope.goBack = function(){
+			$location.path("/ListTasks-en");
+		}
         $scope.getStatusList= function(){
 			 var deferred = $q.defer();
 			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_status_list')

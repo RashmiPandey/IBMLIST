@@ -6,10 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.ListProject.domain.core.Task;
 import com.ListProject.dao.mysql.GpUserDAO;
 import com.ListProject.dao.mysql.Task_Default_ActivityDao;
 import com.ListProject.domain.core.GpUser;
+import com.ListProject.domain.core.Task;
 
 /**
  *
@@ -32,10 +32,6 @@ public class Task_Default_ActivityService extends GpBaseService {
 
 	Task_Default_ActivityDao Task_Default_Activity_dao;
 
-	TaskPriority_Default_ActivityService TaskPriority_Default_ActivityService;
-
-	TaskStatus_Default_ActivityService TaskStatus_Default_ActivityService;
-
 	GpUserDAO GpUserDAO;
 
 	public Task_Default_ActivityDao get_Task_Default_Activity_dao() {
@@ -56,25 +52,7 @@ public class Task_Default_ActivityService extends GpBaseService {
 		GpUserDAO = gpUserDAO;
 	}
 
-	public TaskPriority_Default_ActivityService get_TaskPriority_Default_ActivityService() {
-		return TaskPriority_Default_ActivityService;
-	}
-
-	@Resource(name = "TaskPriority_Default_ActivityService")
-	public void set_TaskPriority_Default_ActivityService(
-			TaskPriority_Default_ActivityService TaskPriority_Default_ActivityService) {
-		this.TaskPriority_Default_ActivityService = TaskPriority_Default_ActivityService;
-	}
-
-	public TaskStatus_Default_ActivityService get_TaskStatus_Default_ActivityService() {
-		return TaskStatus_Default_ActivityService;
-	}
-
-	@Resource(name = "TaskStatus_Default_ActivityService")
-	public void set_TaskStatus_Default_ActivityService(
-			TaskStatus_Default_ActivityService TaskStatus_Default_ActivityService) {
-		this.TaskStatus_Default_ActivityService = TaskStatus_Default_ActivityService;
-	}
+	
 
 	// auths not ready at this time
 	public Task create_task(Task Task, GpUser user) throws Exception {
@@ -146,8 +124,6 @@ public class Task_Default_ActivityService extends GpBaseService {
 			String method_return_message;
 
 			method_return_message = Task_Default_Activity_dao.delete_task(id, user);
-			TaskPriority_Default_ActivityService.delete_taskpriority_by_parent_id(id);
-			TaskStatus_Default_ActivityService.delete_taskstatus_by_parent_id(id);
 
 			return method_return_message;
 

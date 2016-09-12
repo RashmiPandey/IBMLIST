@@ -45,7 +45,7 @@ public class ListProjectConfig {
 		 Resource[] resources = new ClassPathResource[ ]
 			      { 
 
-             new ClassPathResource( "sql_queries/Master_List_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/ListType_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/Task_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/TaskGroup_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/TaskPriority_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/TaskStatus_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/Gp_User_Activity_SQL.properties"),
+             new ClassPathResource( "sql_queries/Master_List_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/Task_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/TaskGroup_Default_Activity_SQL.properties"),new ClassPathResource( "sql_queries/Gp_User_Activity_SQL.properties"),
 	
 
 			      };

@@ -32,8 +32,6 @@ public class Master_List_Default_ActivityService extends GpBaseService {
 
 	Master_List_Default_ActivityDao Master_List_Default_Activity_dao;
 
-	ListType_Default_ActivityService ListType_Default_ActivityService;
-
 	public Master_List_Default_ActivityDao get_Master_List_Default_Activity_dao() {
 		return Master_List_Default_Activity_dao;
 	}
@@ -41,16 +39,6 @@ public class Master_List_Default_ActivityService extends GpBaseService {
 	@Resource(name = "Master_List_Default_ActivityDao")
 	public void set_Master_List_Default_Activity_dao(Master_List_Default_ActivityDao Master_List_Default_Activity_dao) {
 		this.Master_List_Default_Activity_dao = Master_List_Default_Activity_dao;
-	}
-
-	public ListType_Default_ActivityService get_ListType_Default_ActivityService() {
-		return ListType_Default_ActivityService;
-	}
-
-	@Resource(name = "ListType_Default_ActivityService")
-	public void set_ListType_Default_ActivityService(
-			ListType_Default_ActivityService ListType_Default_ActivityService) {
-		this.ListType_Default_ActivityService = ListType_Default_ActivityService;
 	}
 
 	// auths not ready at this time
@@ -98,8 +86,6 @@ public class Master_List_Default_ActivityService extends GpBaseService {
 			Master_List the_Master_List;
 
 			the_Master_List = Master_List_Default_Activity_dao.master_list_search_for_update(id, user);
-			the_Master_List
-					.setListtype(ListType_Default_ActivityService.get_listtype_by_parent_id(the_Master_List.getId()));
 
 			return the_Master_List;
 
@@ -119,7 +105,6 @@ public class Master_List_Default_ActivityService extends GpBaseService {
 			String method_return_message;
 
 			method_return_message = Master_List_Default_Activity_dao.delete_master_list(id, user);
-			ListType_Default_ActivityService.delete_listtype_by_parent_id(id);
 
 			return method_return_message;
 

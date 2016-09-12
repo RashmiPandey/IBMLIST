@@ -30,6 +30,9 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			$location.path('/MasterList-en');
 		};
 
+		$scope.goBack = function(){
+			$location.path("/DisplayLists-en");
+		}
 
 		$scope.gotoTasks=function(grid,row){
 			$location.path('/ListTasks-en');
@@ -45,7 +48,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 
 		
 		$scope.links ='<div>' +
-        '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listname}}</a>' +
+        '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listtype}}</a>' +
         '</div>'
 		
         $scope.actionButtons='<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
@@ -98,7 +101,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		{ displayName: 'S.No.', name: 'id'},
 		{ displayName: 'Title', name: 'title'},
 		{ displayName: 'Description', name: 'description'},
-		{ field: 'href',displayName: 'Type', name: 'listname',cellTemplate: $scope.links},
+		{ field: 'href',displayName: 'Type', name: 'listtype',cellTemplate: $scope.links},
 		{ name: 'Action', cellTemplate: $scope.actionButtons}
 		];
 		
@@ -138,7 +141,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		}
 		
 		 $scope.changedValue=function(item){
-			$scope.Master_List.listname=item;
+			$scope.Master_List.listtype=item;
 		 }  
 		 
 		$scope.getTypeList();
