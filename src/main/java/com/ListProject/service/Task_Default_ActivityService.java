@@ -3,14 +3,15 @@ package com.ListProject.service;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 
 
+
 import com.ListProject.domain.core.Task;
-
+import com.ListProject.dao.mysql.GpUserDAO;
 import com.ListProject.dao.mysql.Task_Default_ActivityDao;
-
 import com.ListProject.domain.core.GpUser;
 
 
@@ -38,7 +39,8 @@ public class Task_Default_ActivityService extends GpBaseService  {
 
 	TaskStatus_Default_ActivityService TaskStatus_Default_ActivityService;
 
-
+	GpUserDAO  GpUserDAO ;
+	
 	public Task_Default_ActivityDao get_Task_Default_Activity_dao() {
 		return Task_Default_Activity_dao;
 	}
@@ -47,6 +49,16 @@ public class Task_Default_ActivityService extends GpBaseService  {
 	@Resource(name="Task_Default_ActivityDao")
 	public void set_Task_Default_Activity_dao(Task_Default_ActivityDao Task_Default_Activity_dao) {
 		this.Task_Default_Activity_dao = Task_Default_Activity_dao;
+	}
+
+
+	public GpUserDAO getGpUserDAO() {
+		return GpUserDAO;
+	}
+
+	@Resource(name="GpUserDAO")
+	public void setGpUserDAO(GpUserDAO gpUserDAO) {
+		GpUserDAO = gpUserDAO;
 	}
 
 
@@ -82,6 +94,8 @@ public class Task_Default_ActivityService extends GpBaseService  {
 
 			the_Task = Task_Default_Activity_dao.create_task(Task, user);
 
+
+			
 			return the_Task;
 
 		}catch(Exception e){
@@ -125,9 +139,9 @@ public class Task_Default_ActivityService extends GpBaseService  {
 			Task the_Task;
 
 			the_Task = Task_Default_Activity_dao.task_search_for_update(id, user);
-			the_Task.setTaskPriority(TaskPriority_Default_ActivityService.get_taskpriority_by_parent_id(the_Task.getId()));
+			/*the_Task.setTaskPriority(TaskPriority_Default_ActivityService.get_taskpriority_by_parent_id(the_Task.getId()));
 			the_Task.setTaskStatus(TaskStatus_Default_ActivityService.get_taskstatus_by_parent_id(the_Task.getId()));
-
+*/
 
 			return the_Task;
 
@@ -175,11 +189,11 @@ public class Task_Default_ActivityService extends GpBaseService  {
 			ArrayList<Task> Task_list;
 
 			Task_list = Task_Default_Activity_dao.get_all_task();
-			for(Task Task : Task_list){
+			/*for(Task Task : Task_list){
 				Task.setTaskPriority(TaskPriority_Default_ActivityService.get_taskpriority_by_parent_id(Task.getId()));
 			}for(Task Task : Task_list){
 				Task.setTaskStatus(TaskStatus_Default_ActivityService.get_taskstatus_by_parent_id(Task.getId()));
-			}
+			}*/
 
 			return Task_list;
 
@@ -192,6 +206,23 @@ public class Task_Default_ActivityService extends GpBaseService  {
 
 
 
+	}
+
+
+	public ArrayList<GpUser> get_all_users() {
+		try{
+			ArrayList<GpUser> Task_list;
+
+			Task_list = GpUserDAO.getallUsers();
+			
+			return Task_list;
+
+		}catch(Exception e){
+
+			System.out.println("ServiceException: " + e.toString());
+
+		}
+		return null;
 	}
 
 

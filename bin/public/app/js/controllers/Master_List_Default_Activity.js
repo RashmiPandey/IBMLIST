@@ -35,9 +35,11 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			$location.path('/ListTasks-en');
 		}
 		
-		$scope.links = '<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.gotoTasks(grid,row)" style="margin:2px;">' +
-		'<i class="fa"></i>'+
-		'{{row.entity.listname}}</button>';
+		$scope.links ='<div>' +
+        '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listname}}</a>' +
+        '</div>'
+		
+		
 		
         $scope.create = function () {
 
@@ -50,7 +52,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		  //this is where the post code goes
 		  var deferred = $q.defer();
 		  $http.post('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/create_Master_List/', $scope.Master_List).success(function(response) {
-			  alert('Operation SaveMaster_List successful');
 			  $scope.Master_List='';
 			  $scope.selectedListType='';
 			  $scope.getTypeList();
@@ -88,7 +89,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		 $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/get_all_list_data')
 		  .success(function(response) {
 			  $scope.gridOptions.data=response;
-			  alert('Operation SaveMaster_List successful');
 		  	 deferred.resolve(response);
 		  }).error(function(err) {
 		  	 alert('You got' + err + 'error');
@@ -113,7 +113,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			  $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/get_all_list_type')
 			  .success(function(response) {
 				  $scope.listTypes=response;
-				  alert('Operation SaveMaster_List successful');
 			  	 deferred.resolve(response);
 			  }).error(function(err) {
 			  	 alert('You got' + err + 'error');

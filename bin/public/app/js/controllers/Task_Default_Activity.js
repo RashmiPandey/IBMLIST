@@ -18,18 +18,34 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 
 		$scope.Task = {
 		id: '',
-		taskid : '', 
 		title : '', 
-		description : '', 
 		taskowner : '', 
-		duedate : '', 
-		completionpercentage : '', 
+		duedate : null, 
+		completionpercentage : 0, 
 		attachment : '', 
 		groupid : '', 
-		status : '', 
-		priority : ''
+		task_status : '', 
+		task_priority : ''
 		};
 
+		$scope.DueDate = '';
+		$scope.popupDueDate = { 
+				opened: false
+		};
+		 $scope.dateOptions = {
+	        	    formatYear: 'dd',
+	        	    startingDay: 1
+	        	  };
+		
+		 $scope.openStartdate = function() {
+	            $scope.popupDueDate.opened = true;
+	        };
+	        
+	     /* $scope.getDate= function(date){
+	    	  $scope.Task.duedate=new Date(date);
+	    	 console.log($scope.Task.duedate); 
+	      }  */
+		 
 		$scope.statuses='';
 		$scope.priorities='';
 		$scope.assigns='';
@@ -37,34 +53,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			$location.path("/TaskCreate-en");
 		}
 
-        $scope.create = function () {
-
-		  //this is where the start code goes
-
-
-		  //this is where the validate code goes
-
-
-		  //this is where the post code goes
-		  var deferred = $q.defer();
-		  $http.post('http://localhost/ListProject_10030/Task_Default_Activity/create_Task', $scope.Task).success(function(response) {
-		  	 alert('Operation SaveTask successful');
-		  	 deferred.resolve(response);
-		  }).error(function(err) {
-		  	 alert('You got' + err + 'error');
-		  	 deferred.reject(err);
-		  });
-
-		  //this is where the server response code goes
-
-
-		  //this is where the transition code goes
-
-		  //this is where the end code goes 
-
-
-
-        };
+        
 
         $scope.getStatusList= function(){
 			 var deferred = $q.defer();
@@ -92,7 +81,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
         
         $scope.getAssigns= function(){
 			 var deferred = $q.defer();
-			  $http.get('http://localhost:8080/ListProject_10030/TaskGroup_Default_Activity/get_all_users')
+			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_users')
 			  .success(function(response) {
 				$scope.assigns=response;
 			  	 deferred.resolve(response);
@@ -107,11 +96,11 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
         $scope.getAssigns();
         
         $scope.changedstatus=function(item){
-			$scope.Task.status=item;
+			$scope.Task.task_status=item;
 		 } 
         
         $scope.changedpriority=function(item){
-        	$scope.Task.priority=item;
+        	$scope.Task.task_priority=item;
         }
         
         $scope.changedassign=function(item){
@@ -122,9 +111,9 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		enableRowSelection: true,
 		enableSelectAll: false
 		};
-		function handle_search_result(search_result){
+		/*function handle_search_result(search_result){
 		$scope.gridOptions.data = search_result;
-		}
+		}*/
 
 		$scope.gridOptions.columnDefs = [
 		{ displayName: 'S.No',name:"sno"},
@@ -139,6 +128,17 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		{ displayName: 'Delete',name:"delete"}
 		];
 		
+		var deferred = $q.defer();
+		 $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_Task')
+		  .success(function(response) {
+			  $scope.gridOptions.data=response;
+			  alert('Operation SaveMaster_List successful');
+		  	 deferred.resolve(response);
+		  }).error(function(err) {
+		  	 alert('You got' + err + 'error');
+		  	 deferred.reject(err);
+		  });
+
 		
 		$scope.$on('$viewContentLoaded', function(event) {
 			var biggestHeight = 0;
@@ -151,6 +151,24 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			});
 			$(".screen").height(biggestHeight);
 		});
+		
+		$scope.create= function(){
+			
+			var deferred = $q.defer();
+			  $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
+				  alert('Operation SaveMaster_List successful');
+				  $scope.Task={};
+				  $scope.selectedStatus='';
+				  $scope.selectedassign='';
+				  $scope.selectedPriority='';
+				  $scope.Task.duedate='';
+				  $location.path('/ListTasks-en');
+			  	 deferred.resolve(response);
+			  }).error(function(err) {
+			  	 alert('You got' + err + 'error');
+			  	 deferred.reject(err);
+			  });
+		}
 
 }]);
 

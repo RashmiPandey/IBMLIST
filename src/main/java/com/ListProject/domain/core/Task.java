@@ -1,7 +1,8 @@
 package com.ListProject.domain.core;
 
-import javax.persistence.Lob;
+import java.util.Date;
 
+import javax.persistence.Lob;
 import javax.persistence.Transient;
 
 
@@ -25,6 +26,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -34,7 +36,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 
 @Entity
 
-@Table(name="Task")
+@Table(name="task")
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
@@ -94,13 +96,31 @@ public class Task  {
 
 	@ApiModelProperty( value = "description", required = true )
 	@Column
-	GpUser Taskowner;
+ 	GpUser Taskowner;
 
+	@ApiModelProperty( value = "task_status", required = true )
+	@Column
+ 	String task_status;
+
+	@ApiModelProperty( value = "task_priority", required = true )
+	@Column
+ 	String task_priority;
+
+	
+
+	public GpUser getTaskowner() {
+		return Taskowner;
+	}
+
+
+	public void setTaskowner(GpUser taskowner) {
+		Taskowner = taskowner;
+	}
 
 
 	@ApiModelProperty( value = "description", required = true )
 	@Column
- 	String Duedate;
+ 	Date Duedate;
 
 
 
@@ -120,20 +140,6 @@ public class Task  {
 	@ApiModelProperty( value = "description", required = true )
 	@Column
  	long Groupid;
-
-
-
-	@ApiModelProperty( value = "Parent noun", required = true )
-	@Transient
- 	TaskStatus TaskStatus;
-
-
-
-	@ApiModelProperty( value = "Parent noun", required = true )
-	@Transient
- 	TaskPriority TaskPriority;
-
-
 
 
 	public void setId(long Id) {
@@ -208,23 +214,17 @@ public class Task  {
 		return Description;
 	}
 
-	public void setTaskowner(GpUser Taskowner) {
-		this.Taskowner = Taskowner;
-	}
+	
 
-
-	public GpUser getTaskowner() {
-		return Taskowner;
-	}
-
-	public void setDuedate(String Duedate) {
-		this.Duedate = Duedate;
-	}
-
-
-	public String getDuedate() {
+	public Date getDuedate() {
 		return Duedate;
 	}
+
+
+	public void setDuedate(Date duedate) {
+		Duedate = duedate;
+	}
+
 
 	public void setCompletionpercentage(long Completionpercentage) {
 		this.Completionpercentage = Completionpercentage;
@@ -253,23 +253,27 @@ public class Task  {
 		return Groupid;
 	}
 
-	public void setTaskStatus(TaskStatus TaskStatus) {
-		this.TaskStatus = TaskStatus;
+
+	public String getTask_status() {
+		return task_status;
 	}
 
 
-	public TaskStatus getTaskStatus() {
-		return TaskStatus;
-	}
-
-	public void setTaskPriority(TaskPriority TaskPriority) {
-		this.TaskPriority = TaskPriority;
+	public void setTask_status(String task_status) {
+		this.task_status = task_status;
 	}
 
 
-	public TaskPriority getTaskPriority() {
-		return TaskPriority;
+	public String getTask_priority() {
+		return task_priority;
 	}
+
+
+	public void setTask_priority(String task_priority) {
+		this.task_priority = task_priority;
+	}
+
+	
 
 
 

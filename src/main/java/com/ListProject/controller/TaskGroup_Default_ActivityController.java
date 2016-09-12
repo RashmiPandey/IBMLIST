@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ListProject.domain.core.GpUser;
 import com.ListProject.domain.core.TaskGroup;
-import com.ListProject.service.Gp_Default_ActivityService;
 import com.ListProject.service.TaskGroup_Default_ActivityService;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -47,28 +45,16 @@ public class TaskGroup_Default_ActivityController extends GpBaseController {
 
 	private TaskGroup_Default_ActivityService TaskGroup_Default_Activity_service;
 	
-	private Gp_Default_ActivityService gp_Default_ActivityService;
-
 	public TaskGroup_Default_ActivityService get_TaskGroup_Default_Activity_service() {
 		return TaskGroup_Default_Activity_service;
 	}
-
 
 	@Resource(name="TaskGroup_Default_ActivityService")
 	public void set_TaskGroup_Default_Activity_service(TaskGroup_Default_ActivityService TaskGroup_Default_Activity_service) {
 		this.TaskGroup_Default_Activity_service = TaskGroup_Default_Activity_service;
 	}
 
-	public Gp_Default_ActivityService get_Gp_Default_ActivityService() {
-		return gp_Default_ActivityService;
-	}
-
-
-	@Resource(name="Gp_Default_ActivityService")
-	public void set_Gp_Default_ActivityService(Gp_Default_ActivityService gp_Default_ActivityService) {
-		this.gp_Default_ActivityService = gp_Default_ActivityService;
-	}
-
+	
 
 
 	//auths not ready at this time
@@ -195,29 +181,5 @@ public class TaskGroup_Default_ActivityController extends GpBaseController {
 		return TaskGroup_list;
 
 	}
-
-	
-	@ApiOperation(value = "/get_all_users", httpMethod = "GET",
-			notes = "special search that gets all values of TaskGroup", 
-			response = TaskGroup.class)
-		    @ApiResponses(value = { 
-		        @ApiResponse(code = 200, message = "The request was fulfilled"),
-			    @ApiResponse(code = 404, message = "The server has not found anything matching the URI given"),
-			    @ApiResponse(code = 500, message = "Internal server error due to encoding the data"),
-			    @ApiResponse(code = 400, message = "Bad request due to decoding the data"),
-			    @ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
-
-			@RequestMapping(method = RequestMethod.GET,value = "/get_all_users" ,headers="Accept=application/json")
-		    @ResponseBody
-			public ArrayList<GpUser> getallUsers() throws Exception {
-					
-				ArrayList<GpUser> assign_list = new ArrayList<GpUser>();	
-			
-				assign_list = this.gp_Default_ActivityService.getallUsers();
-		
-				return assign_list;
-			}
-
-
 
 }

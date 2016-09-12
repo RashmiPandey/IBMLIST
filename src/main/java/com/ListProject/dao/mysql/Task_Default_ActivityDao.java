@@ -2,6 +2,7 @@ package com.ListProject.dao.mysql;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+
 
 
 
@@ -105,7 +107,7 @@ public class Task_Default_ActivityDao   {
 	}
 
 	//auths not ready at this time
-	public ArrayList<Task> get_all_task() throws Exception {
+	public ArrayList<Task> get_all_task() throws Exception { 
 
 
 		try{
@@ -143,16 +145,20 @@ public class Task_Default_ActivityDao   {
 		try{
 			Query query = entityManager
 					.createNativeQuery(create_Task)
-			.setParameter("taskid", Task.getTaskid())
 			.setParameter("title", Task.getTitle())
 			.setParameter("description", Task.getDescription())
-			.setParameter("taskowner", Task.getTaskowner())
+			.setParameter("taskowner", Task.getTaskowner().getScreenname())
 			.setParameter("duedate", Task.getDuedate())
 			.setParameter("completionpercentage", Task.getCompletionpercentage())
 			.setParameter("attachment", Task.getAttachment())
 			.setParameter("groupid", Task.getGroupid())
 			.setParameter("created_by", user == null ? 0:user.getId())
 			.setParameter("updated_by", user == null ? 0:user.getId())
+			.setParameter("Created_date",new Date())
+			.setParameter("Updated_date",new Date())
+			.setParameter("task_status",Task.getTask_status())
+			.setParameter("task_priority",Task.getTask_priority())
+			
 ;
 
 			int insertedId = query.executeUpdate();
