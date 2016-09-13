@@ -162,6 +162,32 @@ public class Task_Default_ActivityService extends GpBaseService {
 		return null;
 
 	}
+	
+	public Task get_task_by_id(Long taskId) throws Exception {
+
+		try {
+			Task task=null;
+
+			task = Task_Default_Activity_dao.get_task_by_id(taskId);
+			/*
+			 * for(Task Task : Task_list){
+			 * Task.setTaskPriority(TaskPriority_Default_ActivityService.
+			 * get_taskpriority_by_parent_id(Task.getId())); }for(Task Task :
+			 * Task_list){
+			 * Task.setTaskStatus(TaskStatus_Default_ActivityService.
+			 * get_taskstatus_by_parent_id(Task.getId())); }
+			 */
+
+			return task;
+
+		} catch (Exception e) {
+
+			System.out.println("ServiceException: " + e.toString());
+
+		}
+		return null;
+
+	}
 
 	public ArrayList<GpUser> get_all_users() {
 		try {
@@ -170,6 +196,22 @@ public class Task_Default_ActivityService extends GpBaseService {
 			Task_list = GpUserDAO.getallUsers();
 
 			return Task_list;
+
+		} catch (Exception e) {
+
+			System.out.println("ServiceException: " + e.toString());
+
+		}
+		return null;
+	}
+	
+	public ArrayList<GpUser> get_user_by_id(Long id) {
+		try {
+			ArrayList<GpUser> user;
+
+			user = GpUserDAO.get_user_by_id(id);
+
+			return user;
 
 		} catch (Exception e) {
 

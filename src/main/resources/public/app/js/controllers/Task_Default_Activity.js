@@ -13,10 +13,9 @@
  *
 */
 
-app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListIdService',
-				    function( $scope, $rootScope, $location, $window, $q, $http, ListIdService) {
-	
-		$scope.edit=false;
+app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService','$timeout',
+				    function( $scope, $rootScope, $location, $window, $q, $http, ListService,$timeout) {
+
 		$scope.Task = {
 		id: '',
 		title : '', 
@@ -27,7 +26,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		groupid : '', 
 		task_status : '', 
 		task_priority : '',
-		listId : ListIdService.listId
+		listId : ListService.listId
 		};
 
 		$scope.DueDate = '';
@@ -42,12 +41,38 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		 $scope.openStartdate = function() {
 	            $scope.popupDueDate.opened = true;
 	        };
-	        
-	     /* $scope.getDate= function(date){
-	    	  $scope.Task.duedate=new Date(date);
-	    	 console.log($scope.Task.duedate); 
-	      }  */
-		 
+	        $scope.users = [];
+	    $scope.init=function(){
+	    	
+	    	if($scope.Task.id == ''){
+			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_task_by_id/'+ListService.taskId)
+			  .success(function(response) {
+				  console.log("RES"+angular.toJson(response));
+				  $scope.Task=response;
+				  $scope.selectedPriority=$scope.Task.task_priority;
+				  $scope.selectedStatus=$scope.Task.task_status;
+				  /*$timeout(function () {
+				  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_user_by_id/'+$scope.Task.taskowner)
+				  .success(function(response) {
+					  //$scope.users[1] = response;
+					  $scope.selectedassign=response;
+					  console.log("USER"+angular.toJson($scope.selectedassign));
+				  }).error(function(err) {
+				  	 //alert('You got' + err + 'error');
+				  });
+				  }, 500);*/
+			  }).error(function(err) {
+			  	 //alert('You got' + err + 'error');
+			  });
+	    	}
+	    	
+	    	
+	    }
+	    if(ListService.taskId!=null || ListService.taskId!=''){
+	    	console.log("ListService.taskIdListService.taskIdListService.taskIdListService.taskId "+ListService.taskId)
+	    $scope.init();
+	    }
+	    
 		$scope.statuses='';
 		$scope.priorities='';
 		$scope.assigns='';
@@ -86,6 +111,11 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_users')
 			  .success(function(response) {
 				$scope.assigns=response;
+				for(var i=0;i<response.length;i++){
+				if($scope.Task.taskowner!='' && $scope.Task.taskowner==response[i].id){
+					$scope.selectedassign=response[i];
+				}
+				}
 			  	 deferred.resolve(response);
 			  }).error(function(err) {
 			  	 alert('You got' + err + 'error');
@@ -120,14 +150,16 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		}*/
 
 		$scope.editRow = function(grid,row){
-			
+			ListService.taskId = row.entity.id;
+			$location.path('/TaskUpdate-en');
 		}
+		
 		
 		$scope.deleteRow = function(grid,row){
 
 			   $http.delete('http://localhost:8080/ListProject_10030/Task_Default_Activity/delete_Task/'+row.entity.id)
 			        .success(function (data) {
-			        	alert("deleted");
+			        	$scope.refreshData();
 			        })
 			        .error(function (data) {
 			          console.log("ERROR: " + data);
@@ -200,6 +232,25 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			  	 deferred.reject(err);
 			  });
 		}
+		
+		$scope.update= function(){
+			//	alert("data to send" + angular.toJson($scope.Task));
+			//	console.log(JSON.stringify($scope.Task));
+				var deferred = $q.defer();
+				  $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/update_Task/', $scope.Task).success(function(response) {
+					  alert('Task Saved successfully');
+					  $scope.Task={};
+					  $scope.selectedStatus='';
+					  $scope.selectedassign='';
+					  $scope.selectedPriority='';
+					  $scope.Task.duedate='';
+					  $location.path('/ListTasks-en');
+				  	 deferred.resolve(response);
+				  }).error(function(err) {
+				  	 alert('You got' + err + 'error');
+				  	 deferred.reject(err);
+				  });
+			}
 
 }]);
 

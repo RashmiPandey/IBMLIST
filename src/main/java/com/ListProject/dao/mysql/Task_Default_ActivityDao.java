@@ -49,6 +49,8 @@ public class Task_Default_ActivityDao {
 	private String delete_Task;
 	@Value("${get_all_Task.sql}")
 	private String get_all_Task;
+	@Value("${get_task_by_id.sql}")
+	private String get_task_by_id;
 
 	@PersistenceContext
 	EntityManager entityManager;
@@ -100,6 +102,27 @@ public class Task_Default_ActivityDao {
 		return null;
 
 	}
+	
+	// auths not ready at this time
+		public Task get_task_by_id(Long taskId) throws Exception {
+
+			try {
+
+				Query result = entityManager.createNativeQuery(get_task_by_id, Task.class).setParameter("id", taskId);
+
+				ArrayList<Task> task = (ArrayList<Task>) result.getResultList();
+
+				if(task!=null)
+				return task.get(0);
+
+			} catch (Exception e) {
+
+				new Exception(e.toString()); // this needs to be changed
+
+			}
+			return null;
+
+		}
 
 	// auths not ready at this time
 	@Transactional

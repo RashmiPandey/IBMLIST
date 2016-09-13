@@ -38,7 +38,10 @@ public class GpUserDAO {
 
 	@Value("${get_all_users.sql}")
 	private String get_all_users;
-
+	
+	@Value("${get_user_by_id.sql}")	
+	private String get_user_by_id;
+	
 	@PersistenceContext
 	EntityManager entityManager;
 
@@ -60,5 +63,24 @@ public class GpUserDAO {
 		}
 		return null;
 	}
+
+	// auths not ready at this time
+		public ArrayList<GpUser> get_user_by_id(Long id) {
+
+			try {
+				Query result = entityManager.createNativeQuery(get_user_by_id,GpUser.class).setParameter("id",id);
+				ArrayList<GpUser> assignto_list = (ArrayList<GpUser>) result.getResultList();
+				if (assignto_list.size() < 1) {
+					throw new Exception("no data found");
+				}
+				return  assignto_list;
+
+			} catch (Exception e) {
+
+				new Exception(e.toString()); // this needs to be changed
+
+			}
+			return null;
+		}
 
 }

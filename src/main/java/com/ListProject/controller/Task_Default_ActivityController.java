@@ -167,6 +167,42 @@ public class Task_Default_ActivityController extends GpBaseController {
 		return Task_list;
 
 	}
+	
+	@ApiOperation(value = "/get_task_by_id/{taskId}", httpMethod = "GET", notes = "special search that gets Task by id", response = Task.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The request was fulfilled"),
+			@ApiResponse(code = 404, message = "The server has not found anything matching the URI given"),
+			@ApiResponse(code = 500, message = "Internal server error due to encoding the data"),
+			@ApiResponse(code = 400, message = "Bad request due to decoding the data"),
+			@ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
+	@RequestMapping(method = RequestMethod.GET, value = "/get_task_by_id/{taskId}", headers = "Accept=application/json")
+	@ResponseBody
+	public Task get_task_by_id(@PathVariable("taskId") Long taskId) throws Exception {
+
+		Task task = null;
+
+		task = Task_Default_Activity_service.get_task_by_id(taskId);
+
+		return task;
+
+	}
+	
+	@ApiOperation(value = "/get_user_by_id/{userId}", httpMethod = "GET", notes = "special search that gets Task by id", response = Task.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "The request was fulfilled"),
+			@ApiResponse(code = 404, message = "The server has not found anything matching the URI given"),
+			@ApiResponse(code = 500, message = "Internal server error due to encoding the data"),
+			@ApiResponse(code = 400, message = "Bad request due to decoding the data"),
+			@ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
+	@RequestMapping(method = RequestMethod.GET, value = "/get_user_by_id/{userId}", headers = "Accept=application/json")
+	@ResponseBody
+	public ArrayList<GpUser> get_user_by_id(@PathVariable("userId") Long userId) throws Exception {
+
+		ArrayList<GpUser> user = null;
+
+		user = Task_Default_Activity_service.get_user_by_id(userId);
+
+		return user;
+
+	}
 
 	@ApiOperation(value = "/get_status_list", httpMethod = "GET", notes = "gets the list of statuses", response = TaskStatus.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "The request was fulfilled"),
@@ -217,5 +253,5 @@ public class Task_Default_ActivityController extends GpBaseController {
 		return Task_list;
 
 	}
-
+	
 }
