@@ -59,7 +59,7 @@ public class Task_Default_ActivityService extends GpBaseService {
 
 		try {
 			Task the_Task;
-
+			
 			the_Task = Task_Default_Activity_dao.create_task(Task, user);
 
 			return the_Task;

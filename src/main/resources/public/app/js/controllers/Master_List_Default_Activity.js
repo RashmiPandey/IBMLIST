@@ -13,8 +13,8 @@
  *
 */
 
-app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http',
-				    function( $scope, $rootScope, $location, $window, $q, $http) {
+app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListIdService',
+				    function( $scope, $rootScope, $location, $window, $q, $http , ListIdService) {
 
 		$scope.Master_List = {
 		id: '',
@@ -25,7 +25,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		listname : ''
 		};
 
-		
+		$scope.edit=false;
 		$scope.gotoListCreate = function () {
 			$location.path('/MasterList-en');
 		};
@@ -35,14 +35,23 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		}
 
 		$scope.gotoTasks=function(grid,row){
+			ListIdService.listId=row.entity.id;
 			$location.path('/ListTasks-en');
 		}
 		
-		$scope.editRow = function(){
+		$scope.editRow = function(grid,row){
 			
 		}
 		
-		$scope.deleteRow = function(){
+		$scope.deleteRow = function(grid,row){
+
+			   $http.delete('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/delete_Master_List/'+row.entity.id)
+			        .success(function (data) {
+			        	alert("deleted");
+			        })
+			        .error(function (data) {
+			          console.log("ERROR: " + data);
+			      });
 			
 		}
 

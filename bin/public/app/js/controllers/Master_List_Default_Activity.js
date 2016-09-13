@@ -13,8 +13,8 @@
  *
 */
 
-app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http',
-				    function( $scope, $rootScope, $location, $window, $q, $http) {
+app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListIdService',
+				    function( $scope, $rootScope, $location, $window, $q, $http , ListIdService) {
 
 		$scope.Master_List = {
 		id: '',
@@ -25,21 +25,48 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		listname : ''
 		};
 
-		
+		$scope.edit=false;
 		$scope.gotoListCreate = function () {
 			$location.path('/MasterList-en');
 		};
 
+		$scope.goBack = function(){
+			$location.path("/DisplayLists-en");
+		}
 
 		$scope.gotoTasks=function(grid,row){
+			ListIdService.listId=row.entity.id;
 			$location.path('/ListTasks-en');
 		}
 		
+		$scope.editRow = function(grid,row){
+			
+		}
+		
+		$scope.deleteRow = function(grid,row){
+
+			   $http.delete('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/delete_Master_List/'+row.entity.id)
+			        .success(function (data) {
+			        	alert("deleted");
+			        })
+			        .error(function (data) {
+			          console.log("ERROR: " + data);
+			      });
+			
+		}
+
+		
 		$scope.links ='<div>' +
-        '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listname}}</a>' +
+        '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listtype}}</a>' +
         '</div>'
 		
-		
+        $scope.actionButtons='<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
+		'<i class="fa"></i>'+
+		'edit</button>'+
+		'<button class="btn btn-danger btn-sm" '+
+			'ng-click="grid.appScope.deleteRow(grid,row)" style="margin:2px;">'+
+			'<i class="fa fa-trash"></i>'+
+		'</button></div>';
 		
         $scope.create = function () {
 
@@ -71,7 +98,8 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
         };
 
 		$scope.gridOptions = {
-		enableRowSelection: true,
+		rowHeight:40,
+		enableRowSelection: false,
 		enableSelectAll: false
 		};
 		function handle_search_result(search_result){
@@ -82,7 +110,8 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		{ displayName: 'S.No.', name: 'id'},
 		{ displayName: 'Title', name: 'title'},
 		{ displayName: 'Description', name: 'description'},
-		{ field: 'href',displayName: 'Type', name: 'listname',cellTemplate: $scope.links}
+		{ field: 'href',displayName: 'Type', name: 'listtype',cellTemplate: $scope.links},
+		{ name: 'Action', cellTemplate: $scope.actionButtons}
 		];
 		
 		var deferred = $q.defer();
@@ -121,7 +150,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		}
 		
 		 $scope.changedValue=function(item){
-			$scope.Master_List.listname=item;
+			$scope.Master_List.listtype=item;
 		 }  
 		 
 		$scope.getTypeList();

@@ -39,7 +39,7 @@
 			style="position: absolute; width: 203px; height: 35px; left: 298px; top: 263px; padding: 5px;">
 			<select data-ng-model="selectedListType"
 				ng-change="changedValue(selectedListType)"
-				data-ng-options="listType for listType in listTypes">
+				data-ng-options="listType for listType in listTypes" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 		</div>
@@ -48,9 +48,9 @@
 			<hr>
 		</div>
 		<button type="submit" class="btn btn-primary"
-			style="position: absolute; left: 466px; top: 360px;">CANCEL</button>
+			style="position: absolute; left: 300px; top: 360px;" data-ng-click="goBack()">CANCEL</button>
 		<button type="submit" class="btn btn-primary" data-ng-click="create()"
-			style="position: absolute; left: 295px; top: 360px;">CREATE</button>
+			style="position: absolute; left: 605px; top: 360px;">CREATE</button>
 	</form>
 </div>
 

@@ -106,6 +106,8 @@ public class Task_Default_ActivityDao {
 	public Task create_task(Task Task, GpUser user) throws Exception {
 
 		try {
+
+			
 			Query query = entityManager.createNativeQuery(create_Task).setParameter("title", Task.getTitle())
 					.setParameter("description", Task.getDescription()).setParameter("taskowner", Task.getTaskowner())
 					.setParameter("duedate", Task.getDuedate())
@@ -116,7 +118,8 @@ public class Task_Default_ActivityDao {
 					.setParameter("Created_date", new Date()).setParameter("Updated_date", new Date())
 					.setParameter("task_status", Task.getTask_status())
 					.setParameter("task_priority", Task.getTask_priority())
-
+					.setParameter("listId", Task.getListId())
+					
 			;
 
 			int insertedId = query.executeUpdate();

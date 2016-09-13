@@ -138,7 +138,7 @@ public class Task_Default_ActivityController extends GpBaseController {
 			@ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
 	@RequestMapping(method = RequestMethod.DELETE, value = "/delete_Task/{Task_id}", headers = "Accept=application/json")
 	@ResponseBody
-	public String delete_Task(@PathVariable("Task_id") long Task_id) throws Exception {
+	public String delete_Task(@PathVariable("Task_id") Long Task_id) throws Exception {
 
 		String service_return_msg = "";
 

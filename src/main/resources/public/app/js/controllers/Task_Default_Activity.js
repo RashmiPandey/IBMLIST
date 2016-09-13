@@ -13,9 +13,10 @@
  *
 */
 
-app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http',
-				    function( $scope, $rootScope, $location, $window, $q, $http) {
-
+app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListIdService',
+				    function( $scope, $rootScope, $location, $window, $q, $http, ListIdService) {
+	
+		$scope.edit=false;
 		$scope.Task = {
 		id: '',
 		title : '', 
@@ -25,7 +26,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		attachment : '', 
 		groupid : '', 
 		task_status : '', 
-		task_priority : ''
+		task_priority : '',
+		listId : ListIdService.listId
 		};
 
 		$scope.DueDate = '';
@@ -117,12 +119,20 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		$scope.gridOptions.data = search_result;
 		}*/
 
-		$scope.editRow = function(){
+		$scope.editRow = function(grid,row){
 			
 		}
 		
-		$scope.deleteRow = function(){
-			
+		$scope.deleteRow = function(grid,row){
+
+			   $http.delete('http://localhost:8080/ListProject_10030/Task_Default_Activity/delete_Task/'+row.entity.id)
+			        .success(function (data) {
+			        	alert("deleted");
+			        })
+			        .error(function (data) {
+			          console.log("ERROR: " + data);
+			      });
+			  
 		}
 		
 		
@@ -145,7 +155,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		{ name: 'Action',cellTemplate: $scope.actionButtons}
 		];
 		
-		var deferred = $q.defer();
+		$scope.refreshData= function(){
+			var deferred = $q.defer();
 		 $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_Task')
 		  .success(function(response) {
 			  console.log("TASKS  "+angular.toJson(response))
@@ -155,7 +166,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		  	 alert('You got' + err + 'error');
 		  	 deferred.reject(err);
 		  });
-
+		}
+		$scope.refreshData();
 		
 		$scope.$on('$viewContentLoaded', function(event) {
 			var biggestHeight = 0;
@@ -169,8 +181,10 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			$(".screen").height(biggestHeight);
 		});
 		
+		
 		$scope.create= function(){
-			//alert("data to send" + angular.toJson($scope.Task));
+		//	alert("data to send" + angular.toJson($scope.Task));
+		//	console.log(JSON.stringify($scope.Task));
 			var deferred = $q.defer();
 			  $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
 				  alert('Task Saved successfully');

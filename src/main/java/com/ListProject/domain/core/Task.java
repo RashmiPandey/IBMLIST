@@ -35,7 +35,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-@ApiModel(value = "Task", description = "Task")
+@ApiModel(value = "task", description = "task")
 @JsonInclude(Include.NON_NULL)
 public class Task {
 
@@ -88,6 +88,10 @@ public class Task {
 		Taskowner = taskowner;
 	}
 
+	@ApiModelProperty(value = "listId", required = true)
+	@Column
+	Long listId;
+	
 	@ApiModelProperty(value = "description", required = true)
 	@Column
 	Date Duedate;
@@ -209,4 +213,13 @@ public class Task {
 		this.task_priority = task_priority;
 	}
 
+	public Long getListId() {
+		return listId;
+	}
+
+	public void setListId(Long listId) {
+		this.listId = listId;
+	}
+
+	
 }
