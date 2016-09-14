@@ -49,8 +49,10 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			  .success(function(response) {
 				  console.log("RES"+angular.toJson(response));
 				  $scope.Task=response;
+				  $scope.selectedassign=$scope.Task.Taskowner;
 				  $scope.selectedPriority=$scope.Task.task_priority;
 				  $scope.selectedStatus=$scope.Task.task_status;
+				  ListService.taskId='';
 				  /*$timeout(function () {
 				  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_user_by_id/'+$scope.Task.taskowner)
 				  .success(function(response) {
@@ -82,6 +84,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		$scope.goBack = function(){
 			$location.path("/ListTasks-en");
 		}
+		
         $scope.getStatusList= function(){
 			 var deferred = $q.defer();
 			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_status_list')
@@ -156,6 +159,10 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		
 		
 		$scope.deleteRow = function(grid,row){
+			   
+			   if(!confirm('Are you sure you want to delete ?')){ 
+			    return;
+			   }
 
 			   $http.delete('http://localhost:8080/ListProject_10030/Task_Default_Activity/delete_Task/'+row.entity.id)
 			        .success(function (data) {
@@ -216,7 +223,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		
 		$scope.create= function(){
 		//	alert("data to send" + angular.toJson($scope.Task));
-		//	console.log(JSON.stringify($scope.Task));
+			console.log(JSON.stringify($scope.Task));
 			var deferred = $q.defer();
 			  $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
 				  alert('Task Saved successfully');
@@ -237,7 +244,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			//	alert("data to send" + angular.toJson($scope.Task));
 			//	console.log(JSON.stringify($scope.Task));
 				var deferred = $q.defer();
-				  $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/update_Task/', $scope.Task).success(function(response) {
+				  $http.put('http://localhost:8080/ListProject_10030/Task_Default_Activity/update_Task/', $scope.Task).success(function(response) {
 					  alert('Task Saved successfully');
 					  $scope.Task={};
 					  $scope.selectedStatus='';

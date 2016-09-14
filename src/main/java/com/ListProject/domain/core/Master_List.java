@@ -69,11 +69,11 @@ public class Master_List {
 
 	@ApiModelProperty(value = "description", required = true)
 	@Column
-	long Listid;
+	long listId;
 
 	@ApiModelProperty(value = "Parent noun", required = false)
 	@Column
-	String listtype;
+	String listType;
 
 	public void setId(long Id) {
 		this.Id = Id;
@@ -131,20 +131,20 @@ public class Master_List {
 		return Description;
 	}
 
-	public void setListid(long Listid) {
-		this.Listid = Listid;
+	public void setListid(long listId) {
+		this.listId = listId;
 	}
 
 	public long getListid() {
-		return Listid;
+		return listId;
 	}
 
-	public String getListtype() {
-		return listtype;
+	public String getListType() {
+		return listType;
 	}
 
-	public void setListtype(String listtype) {
-		this.listtype = listtype;
+	public void setListType(String listType) {
+		this.listType = listType;
 	}
 
 }

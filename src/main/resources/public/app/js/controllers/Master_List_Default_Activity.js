@@ -25,7 +25,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		listname : ''
 		};
 
-		$scope.edit=false;
 		$scope.gotoListCreate = function () {
 			$location.path('/MasterList-en');
 		};
@@ -35,15 +34,23 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		}
 
 		$scope.gotoTasks=function(grid,row){
+			if(row.entity.listType!='TASK'){
+				alert("Not available");
+				return false;
+			}
 			ListService.listId=row.entity.id;
 			$location.path('/ListTasks-en');
 		}
 		
 		$scope.editRow = function(grid,row){
-			
+			ListService.listId = row.entity.id;
+			$location.path('/MasterListUpdate-en');
 		}
 		
 		$scope.deleteRow = function(grid,row){
+			   if(!confirm('Are you sure you want to delete ?')){ 
+				    return;
+				   }
 
 			   $http.delete('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/delete_Master_List/'+row.entity.id)
 			        .success(function (data) {
@@ -54,7 +61,26 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			      });
 			
 		}
+		
+		
+		 $scope.init=function(){
+		    	
+		    	if($scope.Master_List.id == ''){
+				  $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/search_for_update_Master_List/'+ListService.listId)
+				  .success(function(response) {
+					  $scope.Master_List=response;
+					  $scope.selectedListType=response.listType;
+					  ListService.listId='';
+					
+				  }).error(function(err) {
+				  	 //alert('You got' + err + 'error');
+				  });
+		    	}
+		    	
+		    	
+		    }
 
+		 $scope.init();
 		
 		$scope.links ='<div>' +
         '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listtype}}</a>' +
@@ -118,7 +144,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		var deferred = $q.defer();
 		 $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/get_all_list_data')
 		  .success(function(response) {
-			  console.log("DATA "+response);
+			  //console.log("DATA "+response);
 			  $scope.gridOptions.data=response;
 		  	 deferred.resolve(response);
 		  }).error(function(err) {
@@ -140,6 +166,22 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			$(".screen").height(biggestHeight);
 		});
 
+		$scope.update= function(){
+			//	alert("data to send" + angular.toJson($scope.Task));
+			//	console.log(JSON.stringify($scope.Task));
+				var deferred = $q.defer();
+				  $http.put('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/update_Master_List/', $scope.Master_List).success(function(response) {
+					  alert('Task Saved successfully');
+					 $scope.Master_List='';
+					 $scope.selectedListType='';
+					 $location.path('/DisplayLists-en');
+				  	 deferred.resolve(response);
+				  }).error(function(err) {
+				  	 alert('You got' + err + 'error');
+				  	 deferred.reject(err);
+				  });
+			}
+		
 		$scope.getTypeList= function(){
 			 var deferred = $q.defer();
 			  $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/get_all_list_type')
@@ -153,7 +195,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		}
 		
 		 $scope.changedValue=function(item){
-			$scope.Master_List.listtype=item;
+			$scope.Master_List.listType=item;
 		 }  
 		 
 		$scope.getTypeList();

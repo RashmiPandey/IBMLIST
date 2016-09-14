@@ -32,6 +32,11 @@ var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection'
           controller: 'Master_List_Default_Activity'
                      })
 
+            .when('/MasterListUpdate-en', {
+                         templateUrl : 'app/views/en/MasterListUpdate-en.html',
+          controller: 'Master_List_Default_Activity'
+                     })
+         
             .when('/DisplayLists-en', {
                          templateUrl : 'app/views/en/DisplayLists-en.html',
           controller: 'Master_List_Default_Activity'

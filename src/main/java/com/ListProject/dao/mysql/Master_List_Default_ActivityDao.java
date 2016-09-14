@@ -109,8 +109,8 @@ public class Master_List_Default_ActivityDao {
 			Query query = entityManager.createNativeQuery(create_Master_List)
 					.setParameter("title", Master_List.getTitle())
 					.setParameter("description", Master_List.getDescription())
-					.setParameter("Listid", Master_List.getListid()).setParameter("listtype", Master_List.getListtype())
-					.setParameter("listtype", Master_List.getListtype())
+					.setParameter("listId", Master_List.getListid())
+					.setParameter("listType", Master_List.getListType())
 					.setParameter("created_by", user == null ? 0 : user.getId())
 					.setParameter("updated_by", user == null ? 0 : user.getId())
 					.setParameter("updated_date", new Date()).setParameter("created_date", new Date());
@@ -140,8 +140,9 @@ public class Master_List_Default_ActivityDao {
 		try {
 			Query query = entityManager.createNativeQuery(update_Master_List).setParameter("id", Master_List.getId())
 					.setParameter("title", Master_List.getTitle())
+					.setParameter("listId", Master_List.getListid())
 					.setParameter("description", Master_List.getDescription())
-					.setParameter("listtype", Master_List.getListtype())
+					.setParameter("listType", Master_List.getListType())
 					.setParameter("updated_by", user == null ? 0 : user.getId());
 
 			query.executeUpdate();
