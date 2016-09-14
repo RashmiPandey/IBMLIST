@@ -49,7 +49,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			  .success(function(response) {
 				  console.log("RES"+angular.toJson(response));
 				  $scope.Task=response;
-				  $scope.selectedassign=$scope.Task.Taskowner;
+				  $scope.selectedassign=$scope.Task.taskowner;
 				  $scope.selectedPriority=$scope.Task.task_priority;
 				  $scope.selectedStatus=$scope.Task.task_status;
 				  ListService.taskId='';
