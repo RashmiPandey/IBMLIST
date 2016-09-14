@@ -76,14 +76,12 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 				  	 //alert('You got' + err + 'error');
 				  });
 		    	}
-		    	
-		    	
 		    }
 
 		 $scope.init();
 		
 		$scope.links ='<div>' +
-        '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listtype}}</a>' +
+        '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listType}}</a>' +
         '</div>'
 		
         $scope.actionButtons='<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
@@ -136,7 +134,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		{ displayName: 'S.No.', name: 'id'},
 		{ displayName: 'Title', name: 'title'},
 		{ displayName: 'Description', name: 'description'},
-		{ field: 'href',displayName: 'Type', name: 'listtype',cellTemplate: $scope.links},
+		{ field: 'href',displayName: 'Type', name: 'listType',cellTemplate: $scope.links},
 		{ name: 'Action', cellTemplate: $scope.actionButtons}
 		];
 		

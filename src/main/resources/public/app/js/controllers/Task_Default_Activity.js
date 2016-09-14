@@ -259,6 +259,30 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 				  });
 			}
 
+		
+		
+	    $scope.uploadFile = function (input, images) {
+	        var form_data = new FormData();
+
+	        console.log('yaaaay', images);
+	        form_data.append('uploadfile', images[0]);
+
+	        $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/uploadFile', form_data, {
+	            transformRequest: angular.identity,
+	            headers: {
+	              'Content-Type': undefined
+	            }
+	          })
+	          .success(function (res) {
+	            alert('File uploaded successfully');
+	            $scope.Task.attachment = res.src;
+	            alert($scope.Task.attachment);
+	          })
+	          .error(function (err) {
+	            console.error(err);
+	          })
+	      };
+
 }]);
 
 

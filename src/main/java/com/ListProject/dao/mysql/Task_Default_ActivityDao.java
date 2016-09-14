@@ -173,6 +173,7 @@ public class Task_Default_ActivityDao {
 					.setParameter("title", Task.getTitle()).setParameter("description", Task.getDescription())
 					.setParameter("taskowner", Task.getTaskowner()).setParameter("duedate", Task.getDuedate())
 					.setParameter("completionpercentage", Task.getCompletionpercentage())
+					.setParameter("attachment", Task.getAttachment())
 					.setParameter("groupid", Task.getGroupid())
 					.setParameter("updated_by", user == null ? 0 : user.getId());
 

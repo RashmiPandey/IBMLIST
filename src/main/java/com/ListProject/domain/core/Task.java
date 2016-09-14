@@ -103,7 +103,7 @@ public class Task {
 	@ApiModelProperty(value = "description", required = true)
 	@Column
 	@Lob
-	byte[] Attachment;
+	String Attachment;
 
 	@ApiModelProperty(value = "description", required = true)
 	@Column
@@ -181,12 +181,12 @@ public class Task {
 		return Completionpercentage;
 	}
 
-	public void setAttachment(byte[] Attachment) {
-		this.Attachment = Attachment;
+	public String getAttachment() {
+		return Attachment;
 	}
 
-	public byte[] getAttachment() {
-		return Attachment;
+	public void setAttachment(String attachment) {
+		Attachment = attachment;
 	}
 
 	public void setGroupid(long Groupid) {

@@ -1,5 +1,8 @@
 package com.ListProject.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ListProject.Enums.TaskPriority;
 import com.ListProject.Enums.TaskStatus;
@@ -19,6 +24,12 @@ import com.ListProject.domain.core.GpUser;
 import com.ListProject.domain.core.Task;
 import com.ListProject.service.Gp_Default_ActivityService;
 import com.ListProject.service.Task_Default_ActivityService;
+import com.uploadcare.api.Client;
+import com.uploadcare.upload.FileUploader;
+import com.uploadcare.upload.UploadFailureException;
+import com.uploadcare.upload.Uploader;
+import com.uploadcare.urls.CdnPathBuilder;
+import com.uploadcare.urls.Urls;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -253,5 +264,61 @@ public class Task_Default_ActivityController extends GpBaseController {
 		return Task_list;
 
 	}
+
+	  @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	  @ResponseBody
+	  public URLResponse uploadFile(
+	      @RequestParam("uploadfile") MultipartFile uploadfile) throws IOException, UploadFailureException	 {
+		  String Public_key = "d7fed2c928cd2b2043fb";
+		  String Secret_key = "d281f6cde03a923ae02f";
+	   
+	      // Get the filename
+	      String filename = uploadfile.getOriginalFilename();
+	      System.out.println("filename"+filename);
+        
+
+	      Client client = new Client(Public_key,Secret_key);	      
+	      java.io.File file = new java.io.File("lists.jpg");
+	      java.io.File sourceFile = convert(uploadfile);
+	      Uploader uploader = new FileUploader(client, sourceFile);
+          com.uploadcare.api.File uploadedfile = uploader.upload().save();
+          System.out.println(uploadedfile.getOriginalFileUrl());
+	          
+          //get a cdn url
+          //shuld get the image id 85b5644f-e692-4855-9db0-8c5a83096e25
+          com.uploadcare.api.File newfile = client.getFile(uploadedfile.getFileId());
+          CdnPathBuilder builder = newfile.cdnPath();
+	                  
+          URI url = Urls.cdn(builder);          
+          System.out.println("CDN URL"+url);
+          
+          URLResponse urlresp = new URLResponse();
+          urlresp.setSrc(url.toString());
+          
+          return urlresp;
+	   	   
+	  }
+	  
+	  public java.io.File convert(MultipartFile file) throws IOException
+	  {    
+	      java.io.File convFile = new java.io.File(file.getOriginalFilename());
+	      convFile.createNewFile(); 
+	      FileOutputStream fos = new FileOutputStream(convFile); 
+	      fos.write(file.getBytes());
+	      fos.close(); 
+	      return convFile;
+	  }
+	  
+	  	class URLResponse {
+	  
+			String src ="";
 	
+			public String getSrc() {
+				return src;
+			}
+	
+			public void setSrc(String src) {
+				this.src = src;
+			}		  
+	  }
 }
