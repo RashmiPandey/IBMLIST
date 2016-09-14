@@ -140,7 +140,6 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
         }
         
         $scope.changedassign=function(item){
-        	alert(angular.toJson(item.id));
         	$scope.Task.taskowner=item.id;
         }
 
@@ -276,7 +275,6 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 	          .success(function (res) {
 	            alert('File uploaded successfully');
 	            $scope.Task.attachment = res.src;
-	            alert($scope.Task.attachment);
 	          })
 	          .error(function (err) {
 	            console.error(err);
