@@ -129,8 +129,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
        
         $scope.getStatusList();
         $scope.getPriorityList();
-        $scope.getAssigns();
-        
+        $scope.getAssigns();        
         $scope.changedstatus=function(item){
 			$scope.Task.task_status=item;
 		 } 
@@ -145,7 +144,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 
 		$scope.gridOptions = {
 		enableRowSelection: true,
-		enableSelectAll: false
+		enableSelectAll: false,
+		rowHeight : 50
 		};
 		/*function handle_search_result(search_result){
 		$scope.gridOptions.data = search_result;
@@ -173,7 +173,10 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			  
 		}
 		
-		
+		$scope.imageattach='<div>' +
+        '<img src={{row.entity.attachment}}/>' +
+        '</div>';
+        
 		$scope.actionButtons='<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
 		'<i class="fa"></i>'+
 		'edit</button>'+
@@ -190,6 +193,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		{ displayName: 'Priority',name:"task_priority"},
 		{ displayName: '% Completed',name:"completionpercentage"},
 		{ displayName: 'Status',name:"task_status"},
+		{ name:"attachment",field: 'attachment',cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
 		{ name: 'Action',cellTemplate: $scope.actionButtons}
 		];
 		
