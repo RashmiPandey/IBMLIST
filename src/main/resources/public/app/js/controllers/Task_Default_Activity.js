@@ -13,8 +13,8 @@
  *
 */
 
-app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService','$timeout',
-				    function( $scope, $rootScope, $location, $window, $q, $http, ListService,$timeout) {
+app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService','$timeout', 'blockUI' ,
+				    function( $scope, $rootScope, $location, $window, $q, $http, ListService,$timeout,blockUI) {
 
 		$scope.Task = {
 		id: '',
@@ -269,7 +269,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 
 	        console.log('yaaaay', images);
 	        form_data.append('uploadfile', images[0]);
-
+	        
+	        blockUI.start();
 	        $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/uploadFile', form_data, {
 	            transformRequest: angular.identity,
 	            headers: {
@@ -277,8 +278,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 	            }
 	          })
 	          .success(function (res) {
-	            alert('File uploaded successfully');
 	            $scope.Task.attachment = res.src;
+	            blockUI.stop();
 	          })
 	          .error(function (err) {
 	            console.error(err);

@@ -13,7 +13,7 @@
  *
 */
 
-var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','rzModule','ui.bootstrap']);
+var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','rzModule','ui.bootstrap','blockUI']);
 
    // configure our routes
    app.config(['$routeProvider',function($routeProvider) {
