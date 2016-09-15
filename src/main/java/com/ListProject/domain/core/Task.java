@@ -51,7 +51,7 @@ public class Task {
 	
 	@ApiModelProperty(value = "created date", required = true)
 	@Transient
-	String username;
+	GpUser username;
 
 	@ApiModelProperty(value = "created by value", required = true)
 	@Column
@@ -226,11 +226,11 @@ public class Task {
 		this.listId = listId;
 	}
 
-	public String getUsername() {
+	public GpUser getUsername() {
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(GpUser username) {
 		this.username = username;
 	}
 

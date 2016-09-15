@@ -66,12 +66,12 @@ public class GpUserDAO {
 	}
 
 	// auths not ready at this time
-		public ArrayList<GpUser> get_user_by_id(Long id) {
+		public GpUser get_user_by_id(Long id) {
 
 			try {
 				Query result = entityManager.createNativeQuery(get_user_by_id,GpUser.class).setParameter("id",id);
-				ArrayList<GpUser> assignto_list = (ArrayList<GpUser>) result.getResultList();
-				if (assignto_list.size() < 1) {
+				GpUser assignto_list = (GpUser) result.getSingleResult();
+				if (assignto_list == null) {
 					throw new Exception("no data found");
 				}
 				return  assignto_list;

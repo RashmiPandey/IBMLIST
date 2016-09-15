@@ -198,9 +198,9 @@ public class Task_Default_ActivityService extends GpBaseService {
 		return null;
 	}
 	
-	public ArrayList<GpUser> get_user_by_id(Long id) {
+	public GpUser get_user_by_id(Long id) {
 		try {
-			ArrayList<GpUser> user;
+			GpUser user;
 
 			user = GpUserDAO.get_user_by_id(id);
 

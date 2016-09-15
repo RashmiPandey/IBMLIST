@@ -104,9 +104,9 @@ public class Task_Default_ActivityDao {
 			}
 
 			for (Task task : Task_list) {
-				ArrayList<GpUser> gpUser = GpUserDAO.get_user_by_id(task.getTaskowner());
+				GpUser gpUser = GpUserDAO.get_user_by_id(task.getTaskowner());
 				
-				task.setUsername(gpUser.get(0).getUsername());
+				task.setUsername(gpUser);
 			}
 			
 			return (ArrayList<Task>) Task_list;
