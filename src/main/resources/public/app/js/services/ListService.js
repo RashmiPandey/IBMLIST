@@ -4,6 +4,7 @@ app.service('ListService', function() {
   var taskId = '';
   var editTaskData= {};
   var editListData= {};
+ 
   
   this.listId = listId;
   this.taskId = taskId;

@@ -1,6 +1,7 @@
 package com.ListProject.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -40,10 +41,10 @@ public class Gp_Default_ActivityService extends GpBaseService {
 	}
 
 	// auths not ready at this time
-	public ArrayList<GpUser> getallUsers() throws Exception {
+	public List getallUsers() throws Exception {
 
 		try {
-			ArrayList<GpUser> assign_to;
+			List assign_to;
 
 			assign_to = Gp_Default_ActivityDao.getallUsers();
 

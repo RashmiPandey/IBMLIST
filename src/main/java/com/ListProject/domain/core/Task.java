@@ -22,6 +22,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -47,6 +48,10 @@ public class Task {
 	@ApiModelProperty(value = "created date", required = true)
 	@Column
 	String Created_date;
+	
+	@ApiModelProperty(value = "created date", required = true)
+	@Transient
+	String username;
 
 	@ApiModelProperty(value = "created by value", required = true)
 	@Column
@@ -87,7 +92,7 @@ public class Task {
 	public void setTaskowner(long taskowner) {
 		Taskowner = taskowner;
 	}
-
+	
 	@ApiModelProperty(value = "listId", required = true)
 	@Column
 	Long listId;
@@ -219,6 +224,14 @@ public class Task {
 
 	public void setListId(Long listId) {
 		this.listId = listId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	

@@ -1,6 +1,7 @@
 package com.ListProject.dao.mysql;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -46,15 +47,15 @@ public class GpUserDAO {
 	EntityManager entityManager;
 
 	// auths not ready at this time
-	public ArrayList<GpUser> getallUsers() {
+	public List getallUsers() {
 
 		try {
 			Query result = entityManager.createNativeQuery(get_all_users, GpUser.class);
-			ArrayList<GpUser> assignto_list = (ArrayList<GpUser>) result.getResultList();
+			List assignto_list = (List) result.getResultList();
 			if (assignto_list.size() < 1) {
 				throw new Exception("no data found");
 			}
-			return (ArrayList<GpUser>) assignto_list;
+			return assignto_list;
 
 		} catch (Exception e) {
 

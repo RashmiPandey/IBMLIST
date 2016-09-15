@@ -2,40 +2,19 @@ package com.ListProject.dao.mysql;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.persistence.Column;
-import javax.persistence.Query;
-import javax.persistence.Transient;
-import javax.sound.midi.SysexMessage;
-import javax.sql.DataSource;
-import javax.transaction.Transactional;
-
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnitUtil;
-import javax.transaction.Transactional;
 import javax.persistence.Query;
-
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
+import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-
-
-import com.ListProject.domain.core.TaskGroup;
 import com.ListProject.domain.core.GpUser;
+import com.ListProject.domain.core.TaskGroup;
 
 
 /**

@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -36,6 +37,16 @@ import com.ListProject.domain.core.Task;
 @Transactional
 @Repository("Task_Default_ActivityDao")
 public class Task_Default_ActivityDao {
+	GpUserDAO GpUserDAO;
+	
+	public GpUserDAO getGpUserDAO() {
+		return GpUserDAO;
+	}
+
+	@Resource(name = "GpUserDAO")
+	public void setGpUserDAO(GpUserDAO gpUserDAO) {
+		GpUserDAO = gpUserDAO;
+	}
 
 	private Log log = LogFactory.getLog(getClass());
 
@@ -92,6 +103,12 @@ public class Task_Default_ActivityDao {
 				throw new Exception("no Task found");
 			}
 
+			for (Task task : Task_list) {
+				ArrayList<GpUser> gpUser = GpUserDAO.get_user_by_id(task.getTaskowner());
+				
+				task.setUsername(gpUser.get(0).getUsername());
+			}
+			
 			return (ArrayList<Task>) Task_list;
 
 		} catch (Exception e) {

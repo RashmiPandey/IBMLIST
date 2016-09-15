@@ -189,7 +189,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		{ displayName: 'S.No',name:"id"},
 		{ displayName: 'Title',name:"title"},
 		{ displayName: 'Description',name:"description"},
-		{ displayName: 'Assigned To',name:"taskowner"},
+		{ displayName: 'Assigned To',name:"username"},
 		{ displayName: 'Priority',name:"task_priority"},
 		{ displayName: '% Completed',name:"completionpercentage"},
 		{ displayName: 'Status',name:"task_status"},

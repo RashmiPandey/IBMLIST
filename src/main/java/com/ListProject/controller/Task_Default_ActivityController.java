@@ -255,9 +255,9 @@ public class Task_Default_ActivityController extends GpBaseController {
 			@ApiResponse(code = 412, message = "Pre condition failed due to required data not found") })
 	@RequestMapping(method = RequestMethod.GET, value = "/get_all_users", headers = "Accept=application/json")
 	@ResponseBody
-	public ArrayList<GpUser> get_all_users() throws Exception {
+	public List get_all_users() throws Exception {
 
-		ArrayList<GpUser> Task_list = new ArrayList<GpUser>();
+		List Task_list = new ArrayList<GpUser>();
 
 		Task_list = Task_Default_Activity_service.get_all_users();
 

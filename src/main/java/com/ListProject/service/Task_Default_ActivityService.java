@@ -1,6 +1,7 @@
 package com.ListProject.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -143,15 +144,7 @@ public class Task_Default_ActivityService extends GpBaseService {
 			ArrayList<Task> Task_list;
 
 			Task_list = Task_Default_Activity_dao.get_all_task();
-			/*
-			 * for(Task Task : Task_list){
-			 * Task.setTaskPriority(TaskPriority_Default_ActivityService.
-			 * get_taskpriority_by_parent_id(Task.getId())); }for(Task Task :
-			 * Task_list){
-			 * Task.setTaskStatus(TaskStatus_Default_ActivityService.
-			 * get_taskstatus_by_parent_id(Task.getId())); }
-			 */
-
+			
 			return Task_list;
 
 		} catch (Exception e) {
@@ -189,9 +182,9 @@ public class Task_Default_ActivityService extends GpBaseService {
 
 	}
 
-	public ArrayList<GpUser> get_all_users() {
+	public List get_all_users() {
 		try {
-			ArrayList<GpUser> Task_list;
+			List Task_list;
 
 			Task_list = GpUserDAO.getallUsers();
 
