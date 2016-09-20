@@ -13,11 +13,22 @@
  *
 */
 
-var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','rzModule','ui.bootstrap','blockUI']);
+var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','rzModule','ui.bootstrap','facebook','ngCookies','blockUI']);
 
    // configure our routes
-   app.config(['$routeProvider',function($routeProvider) {
+   app.config(['$routeProvider','FacebookProvider',function($routeProvider,FacebookProvider) {
        $routeProvider
+       
+		     .when('/login', {
+		           templateUrl : 'app/views/en/login-en.html',
+		           controller: 'LoginCtrl'
+		       })
+		
+		     .when('/login-success', {
+		           controller: 'LoginCtrlSuccess'
+		           ,template: ' '
+		       })
+		       
             .when('/landing_page-en', {
                          templateUrl : 'app/views/en/landing_page-en.html'
                      })
@@ -68,6 +79,6 @@ var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection'
 
 
           .otherwise('app_level');
-
+       FacebookProvider.init('1619632164961533');
    }]);
 

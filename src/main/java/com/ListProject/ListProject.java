@@ -6,7 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan({"com.ListProject.*"})
+@ComponentScan({"geppetto.module.bootsecurity.*","com.ListProject.*"})
 @SpringBootApplication
 public class ListProject extends SpringBootServletInitializer {
 
