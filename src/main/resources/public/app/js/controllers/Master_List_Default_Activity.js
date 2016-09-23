@@ -13,8 +13,8 @@
  *
 */
 
-app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListService','authFactory',
-				    function( $scope, $rootScope, $location, $window, $q, $http , ListService,authFactory) {
+app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListService','authFactory','RestURL'
+				    function( $scope, $rootScope, $location, $window, $q, $http , ListService,authFactory,RestURL) {
 
 	//alert(authFactory.getUser().id);
 		$scope.Master_List = {
@@ -55,7 +55,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 				    return;
 				   }
 
-			   $http.delete('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/delete_Master_List/'+row.entity.id)
+			   $http.delete(RestURL.baseURL+'/Master_List_Default_Activity/delete_Master_List/'+row.entity.id)
 			        .success(function (data) {
 			        	$scope.refreshData();
 			        })
@@ -69,7 +69,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		 $scope.init=function(){
 		    	
 		    	if($scope.Master_List.id == ''){
-				  $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/search_for_update_Master_List/'+ListService.listId)
+				  $http.get(RestURL.baseURL+'/Master_List_Default_Activity/search_for_update_Master_List/'+ListService.listId)
 				  .success(function(response) {
 					  $scope.Master_List=response;
 					  $scope.selectedListType=response.listType;
@@ -105,7 +105,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 
 		  //this is where the post code goes
 		  var deferred = $q.defer();
-		  $http.post('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/create_Master_List/', $scope.Master_List).success(function(response) {
+		  $http.post(RestURL.baseURL+'/Master_List_Default_Activity/create_Master_List/', $scope.Master_List).success(function(response) {
 			  $scope.Master_List='';
 			  $scope.selectedListType='';
 			  $scope.getTypeList();
@@ -144,7 +144,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		
 		$scope.refreshData= function(){
 		var deferred = $q.defer();
-		 $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/get_all_list_data')
+		 $http.get(RestURL.baseURL+'/Master_List_Default_Activity/get_all_list_data')
 		  .success(function(response) {
 			  //console.log("DATA "+response);
 			  $scope.gridOptions.data=response;
@@ -172,7 +172,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			//	alert("data to send" + angular.toJson($scope.Task));
 			//	console.log(JSON.stringify($scope.Task));
 				var deferred = $q.defer();
-				  $http.put('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/update_Master_List/', $scope.Master_List).success(function(response) {
+				  $http.put(RestURL.baseURL+'/Master_List_Default_Activity/update_Master_List/', $scope.Master_List).success(function(response) {
 					  alert('Task Saved successfully');
 					 $scope.Master_List='';
 					 $scope.selectedListType='';
@@ -186,7 +186,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		
 		$scope.getTypeList= function(){
 			 var deferred = $q.defer();
-			  $http.get('http://localhost:8080/ListProject_10030/Master_List_Default_Activity/get_all_list_type')
+			  $http.get(RestURL.baseURL+'/Master_List_Default_Activity/get_all_list_type')
 			  .success(function(response) {
 				  $scope.listTypes=response;
 			  	 deferred.resolve(response);
