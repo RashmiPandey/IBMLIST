@@ -75,6 +75,10 @@ public class Master_List {
 	@Column
 	String listType;
 
+	@ApiModelProperty(value = "username", required = true)
+	@Transient
+	GpUser username;
+	
 	public void setId(long Id) {
 		this.Id = Id;
 	}
@@ -145,6 +149,14 @@ public class Master_List {
 
 	public void setListType(String listType) {
 		this.listType = listType;
+	}
+	
+	public GpUser getUsername() {
+		return username;
+	}
+
+	public void setUsername(GpUser username) {
+		this.username = username;
 	}
 
 }

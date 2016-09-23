@@ -66,7 +66,11 @@ var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection'
                          templateUrl : 'app/views/en/ListTasks-en.html',
           controller: 'Task_Default_Activity'
                      })
-
+            .when('/MyTasks-en', {
+                         templateUrl : 'app/views/en/ListTasks-en.html',
+          controller: 'Task_Default_Activity'
+                     })
+                     
             .when('/TaskGroup-en', {
                          templateUrl : 'app/views/en/TaskGroup-en.html',
           controller: 'TaskGroup_Default_Activity'

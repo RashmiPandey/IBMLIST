@@ -62,7 +62,9 @@ public class Task_Default_ActivityDao {
 	private String get_all_Task;
 	@Value("${get_task_by_id.sql}")
 	private String get_task_by_id;
-
+	@Value("${get_user_tasks.sql}")
+	private String get_user_tasks;
+	
 	@PersistenceContext
 	EntityManager entityManager;
 
@@ -104,9 +106,8 @@ public class Task_Default_ActivityDao {
 			}
 
 			for (Task task : Task_list) {
-				GpUser gpUser = GpUserDAO.get_user_by_id(task.getTaskowner());
-				
-				task.setUsername(gpUser);
+				task.setTaskOwnerUser(GpUserDAO.get_user_by_id(task.getTaskowner()));
+				task.setUsername(GpUserDAO.get_user_by_id(task.getCreated_by()));
 			}
 			
 			return (ArrayList<Task>) Task_list;
@@ -119,6 +120,37 @@ public class Task_Default_ActivityDao {
 		return null;
 
 	}
+	
+	
+	// auths not ready at this time
+		public ArrayList<Task> get_user_tasks(Long userId) throws Exception {
+
+			try {
+
+				Query result = entityManager.createNativeQuery(get_user_tasks, Task.class).setParameter("userid", userId);
+
+				ArrayList<Task> Task_list = (ArrayList<Task>) result.getResultList();
+
+				if (Task_list.size() < 1) {
+					throw new Exception("no Task found");
+				}
+				
+				for (Task task : Task_list) {
+					task.setTaskOwnerUser(GpUserDAO.get_user_by_id(task.getTaskowner()));
+					task.setUsername(GpUserDAO.get_user_by_id(task.getCreated_by()));
+				}
+
+				
+				return (ArrayList<Task>) Task_list;
+
+			} catch (Exception e) {
+
+				new Exception(e.toString()); // this needs to be changed
+
+			}
+			return null;
+
+		}
 	
 	// auths not ready at this time
 		public Task get_task_by_id(Long taskId) throws Exception {

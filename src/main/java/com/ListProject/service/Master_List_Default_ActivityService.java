@@ -6,9 +6,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.ListProject.domain.core.Master_List;
-
+import com.ListProject.domain.core.Task;
+import com.ListProject.dao.mysql.GpUserDAO;
 import com.ListProject.dao.mysql.Master_List_Default_ActivityDao;
-
 import com.ListProject.domain.core.GpUser;
 
 /**
@@ -31,7 +31,9 @@ import com.ListProject.domain.core.GpUser;
 public class Master_List_Default_ActivityService extends GpBaseService {
 
 	Master_List_Default_ActivityDao Master_List_Default_Activity_dao;
-
+	
+	GpUserDAO gpUserDao;
+	
 	public Master_List_Default_ActivityDao get_Master_List_Default_Activity_dao() {
 		return Master_List_Default_Activity_dao;
 	}
@@ -41,6 +43,15 @@ public class Master_List_Default_ActivityService extends GpBaseService {
 		this.Master_List_Default_Activity_dao = Master_List_Default_Activity_dao;
 	}
 
+	public GpUserDAO getGpUserDao() {
+		return gpUserDao;
+	}
+
+	@Resource(name = "GpUserDAO")
+	public void setGpUserDao(GpUserDAO gpUserDao) {
+		this.gpUserDao = gpUserDao;
+	}
+	
 	// auths not ready at this time
 	public Master_List create_master_list(Master_List Master_List, GpUser user) throws Exception {
 
@@ -129,6 +140,13 @@ public class Master_List_Default_ActivityService extends GpBaseService {
 			 * Master_List.setListtype(ListType_Default_ActivityService.
 			 * get_listtype_by_parent_id(Master_List.getId())); }
 			 */
+			
+			for (Master_List master_List : Master_List_list) {
+				GpUser gpUser = gpUserDao.get_user_by_id(master_List.getCreated_by());
+				
+				master_List.setUsername(gpUser);
+			}
+			
 			return Master_List_list;
 
 		} catch (Exception e) {

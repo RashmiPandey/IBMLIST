@@ -49,9 +49,13 @@ public class Task {
 	@Column
 	String Created_date;
 	
-	@ApiModelProperty(value = "created date", required = true)
+	@ApiModelProperty(value = "user_name", required = true)
 	@Transient
 	GpUser username;
+	
+	@ApiModelProperty(value = "task_owner_user", required = true)
+	@Transient
+	GpUser taskOwnerUser;
 
 	@ApiModelProperty(value = "created by value", required = true)
 	@Column
@@ -234,5 +238,11 @@ public class Task {
 		this.username = username;
 	}
 
-	
+	public GpUser getTaskOwnerUser() {
+		return taskOwnerUser;
+	}
+
+	public void setTaskOwnerUser(GpUser taskOwnerUser) {
+		this.taskOwnerUser = taskOwnerUser;
+	}
 }

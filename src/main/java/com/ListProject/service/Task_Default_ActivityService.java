@@ -213,5 +213,23 @@ public class Task_Default_ActivityService extends GpBaseService {
 		}
 		return null;
 	}
+	
+	public ArrayList<Task> get_user_tasks(Long userId) throws Exception {
+
+		try {
+			ArrayList<Task> Task_list;
+
+			Task_list = Task_Default_Activity_dao.get_user_tasks(userId);
+			
+			return Task_list;
+
+		} catch (Exception e) {
+
+			System.out.println("ServiceException: " + e.toString());
+
+		}
+		return null;
+
+	}
 
 }

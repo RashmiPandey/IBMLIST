@@ -13,7 +13,7 @@
  *
 */
 
-app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListService','authFactory','RestURL'
+app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListService','authFactory','RestURL',
 				    function( $scope, $rootScope, $location, $window, $q, $http , ListService,authFactory,RestURL) {
 
 	//alert(authFactory.getUser().id);
@@ -82,12 +82,15 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		    }
 
 		 $scope.init();
-		
+		 		
 		$scope.links ='<div>' +
         '<a href="" ng-click="grid.appScope.gotoTasks(grid,row)">{{row.entity.listType}}</a>' +
         '</div>'
 		
-        $scope.actionButtons='<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
+		
+        $scope.authId = authFactory.getUser().id ;
+        $scope.actionButtons='<div style="text-align:center;" data-ng-show="grid.appScope.authId == row.entity.created_by">'+
+        	'<button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
 		'<i class="fa"></i>'+
 		'edit</button>'+
 		'<button class="btn btn-danger btn-sm" '+
@@ -137,7 +140,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		{ displayName: 'S.No.', name: 'id'},
 		{ displayName: 'Title', name: 'title'},
 		{ displayName: 'Description', name: 'description'},
-		{ displayName: 'Owner', name: 'created_by'},
+		{ displayName: 'Owner', name: 'username.firstName'},
 		{ field: 'href',displayName: 'Type', name: 'listType',cellTemplate: $scope.links},
 		{ name: 'Action', cellTemplate: $scope.actionButtons}
 		];
