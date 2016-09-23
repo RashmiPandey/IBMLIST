@@ -77,7 +77,19 @@ public class GpBootSecurityUserService implements  IGpUserService {
 			user = gpuser;
 		}
 
+		//session.setAttribute("GPUSER",user);
 		return user;
+
+	}
+	
+	
+	@Override
+	public GpUser getLoggedInUser() throws Exception {
+		
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	     GpUser userDetails = (GpUser)auth.getPrincipal();
+		
+		return userDetails;
 
 	}
 }

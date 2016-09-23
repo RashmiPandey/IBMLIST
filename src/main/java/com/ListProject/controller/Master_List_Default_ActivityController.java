@@ -185,7 +185,7 @@ public class Master_List_Default_ActivityController extends GpBaseController {
 
 		ArrayList<Master_List> Master_List_list = new ArrayList<Master_List>();
 
-		Master_List_list = Master_List_Default_Activity_service.get_all_master_list();
+		Master_List_list = Master_List_Default_Activity_service.get_all_master_list(super.getUser());
 
 		return Master_List_list;
 
@@ -225,7 +225,7 @@ public class Master_List_Default_ActivityController extends GpBaseController {
 			public List<Master_List> get_all_list_data() throws Exception {
 				ArrayList<Master_List> Master_List_list = new ArrayList<Master_List>();
 
-				Master_List_list = Master_List_Default_Activity_service.get_all_master_list();
+				Master_List_list = Master_List_Default_Activity_service.get_all_master_list(super.getUser());
 
 				return Master_List_list;
 			}

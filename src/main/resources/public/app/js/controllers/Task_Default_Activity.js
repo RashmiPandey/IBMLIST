@@ -13,8 +13,8 @@
  *
 */
 
-app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService','$timeout', 'blockUI' ,
-				    function( $scope, $rootScope, $location, $window, $q, $http, ListService,$timeout,blockUI) {
+app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService','$timeout', 'blockUI' ,'authFactory',
+				    function( $scope, $rootScope, $location, $window, $q, $http, ListService,$timeout,blockUI,authFactory) {
 
 		$scope.Task = {
 		id: '',
@@ -29,6 +29,8 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		listId : ListService.listId
 		};
 
+		$scope.username = authFactory.getUser().firstName;
+		
 		$scope.DueDate = '';
 		$scope.popupDueDate = { 
 				opened: false
@@ -189,6 +191,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		{ displayName: 'S.No',name:"id"},
 		{ displayName: 'Title',name:"title"},
 		{ displayName: 'Description',name:"description"},
+		{ displayName: 'Owner', name: 'created_by'},
 		{ displayName: 'Assigned To',name:"username.username"},
 		{ displayName: 'Priority',name:"task_priority"},
 		{ displayName: '% Completed',name:"completionpercentage"},
@@ -199,7 +202,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		
 		$scope.refreshData= function(){
 			var deferred = $q.defer();
-		 $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_Task')
+		 $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_Task/'+ListService.listId)
 		  .success(function(response) {
 			  console.log("TASKS  "+angular.toJson(response))
 			  $scope.gridOptions.data=response;

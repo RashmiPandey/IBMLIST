@@ -91,11 +91,11 @@ public class Task_Default_ActivityDao {
 	}
 
 	// auths not ready at this time
-	public ArrayList<Task> get_all_task() throws Exception {
+	public ArrayList<Task> get_all_task(Long listid,GpUser gpuser) throws Exception {
 
 		try {
 
-			Query result = entityManager.createNativeQuery(get_all_Task, Task.class);
+			Query result = entityManager.createNativeQuery(get_all_Task, Task.class).setParameter("listid", listid).setParameter("userid", gpuser.getId());
 
 			ArrayList<Task> Task_list = (ArrayList<Task>) result.getResultList();
 

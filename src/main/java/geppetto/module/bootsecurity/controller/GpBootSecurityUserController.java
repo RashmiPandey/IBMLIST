@@ -35,4 +35,13 @@ public class GpBootSecurityUserController {
 			return null;
 		}
 	}
+	
+	@RequestMapping(value="/getuser",method = RequestMethod.GET,headers = "Accept=application/json")
+	public @ResponseBody
+	GpUser getLoggedInUser() throws Exception {
+		
+		GpUser user = user_service.getLoggedInUser();
+		
+		return user;
+	}
 }

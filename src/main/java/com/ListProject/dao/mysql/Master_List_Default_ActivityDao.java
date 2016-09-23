@@ -78,11 +78,11 @@ public class Master_List_Default_ActivityDao {
 	}
 
 	// auths not ready at this time
-	public ArrayList<Master_List> get_all_master_list() throws Exception {
+	public ArrayList<Master_List> get_all_master_list(GpUser gpuser) throws Exception {
 
 		try {
 
-			Query result = entityManager.createNativeQuery(get_all_Master_List, Master_List.class);
+			Query result = entityManager.createNativeQuery(get_all_Master_List, Master_List.class).setParameter("id", gpuser.getId());
 
 			ArrayList<Master_List> Master_List_list = (ArrayList<Master_List>) result.getResultList();
 

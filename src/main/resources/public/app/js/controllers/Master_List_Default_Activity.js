@@ -13,18 +13,21 @@
  *
 */
 
-app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListService',
-				    function( $scope, $rootScope, $location, $window, $q, $http , ListService) {
+app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http','ListService','authFactory',
+				    function( $scope, $rootScope, $location, $window, $q, $http , ListService,authFactory) {
 
+	//alert(authFactory.getUser().id);
 		$scope.Master_List = {
 		id: '',
 		title : '', 
 		description : '', 
 		type : '', 
 		listtype : null,
-		listname : ''
+		listname : '',
+		createdBy:authFactory.getUser().id
 		};
 
+		$scope.username = authFactory.getUser().firstName;
 		$scope.gotoListCreate = function () {
 			$location.path('/MasterList-en');
 		};
@@ -134,6 +137,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		{ displayName: 'S.No.', name: 'id'},
 		{ displayName: 'Title', name: 'title'},
 		{ displayName: 'Description', name: 'description'},
+		{ displayName: 'Owner', name: 'created_by'},
 		{ field: 'href',displayName: 'Type', name: 'listType',cellTemplate: $scope.links},
 		{ name: 'Action', cellTemplate: $scope.actionButtons}
 		];

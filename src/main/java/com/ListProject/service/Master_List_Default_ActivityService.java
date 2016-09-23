@@ -118,12 +118,12 @@ public class Master_List_Default_ActivityService extends GpBaseService {
 	}
 
 	// auths not ready at this time
-	public ArrayList<Master_List> get_all_master_list() throws Exception {
+	public ArrayList<Master_List> get_all_master_list(GpUser gpuser) throws Exception {
 
 		try {
 			ArrayList<Master_List> Master_List_list;
 
-			Master_List_list = Master_List_Default_Activity_dao.get_all_master_list();
+			Master_List_list = Master_List_Default_Activity_dao.get_all_master_list(gpuser);
 			/*
 			 * for(Master_List Master_List : Master_List_list){
 			 * Master_List.setListtype(ListType_Default_ActivityService.

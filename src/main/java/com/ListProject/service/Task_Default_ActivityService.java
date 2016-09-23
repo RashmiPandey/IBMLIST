@@ -138,12 +138,12 @@ public class Task_Default_ActivityService extends GpBaseService {
 	}
 
 	// auths not ready at this time
-	public ArrayList<Task> get_all_task() throws Exception {
+	public ArrayList<Task> get_all_task(Long listid,GpUser gpuser) throws Exception {
 
 		try {
 			ArrayList<Task> Task_list;
 
-			Task_list = Task_Default_Activity_dao.get_all_task();
+			Task_list = Task_Default_Activity_dao.get_all_task(listid,gpuser);
 			
 			return Task_list;
 
