@@ -54,6 +54,8 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
         $scope.init = function() {
             if ($location.path().indexOf('ListTasks-en') > -1) {
                 $scope.getListTasks();
+            }else if ($location.path().indexOf('TaskUpdate-en') > -1) {
+                $scope.getTaskDetail();
             } else {
                 $scope.getUserTask();
             }
@@ -78,7 +80,7 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
              
          }*/
 
-        $scope.accessThroughId = function() {
+        $scope.getTaskDetail = function() {
             if ($scope.Task.id == '') {
                 $http.get(RestURL.baseURL + '/Task_Default_Activity/get_task_by_id/' + ListService.taskId)
                     .success(function(response) {
