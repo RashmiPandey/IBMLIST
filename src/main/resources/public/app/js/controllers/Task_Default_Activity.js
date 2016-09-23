@@ -13,8 +13,8 @@
  *
 */
 
-app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService','$timeout', 'blockUI' ,'authFactory',
-				    function( $scope, $rootScope, $location, $window, $q, $http, ListService,$timeout,blockUI,authFactory) {
+app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService','$timeout', 'blockUI' ,'authFactory','RestURL',
+				    function( $scope, $rootScope, $location, $window, $q, $http, ListService,$timeout,blockUI,authFactory,RestURL) {
 
 		$scope.Task = {
 		id: '',
@@ -47,7 +47,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 	    $scope.init=function(){
 	    	
 	    	if($scope.Task.id == ''){
-			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_task_by_id/'+ListService.taskId)
+			  $http.get(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/get_task_by_id/'+ListService.taskId)
 			  .success(function(response) {
 				  console.log("RES"+angular.toJson(response));
 				  $scope.Task=response;
@@ -89,7 +89,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		
         $scope.getStatusList= function(){
 			 var deferred = $q.defer();
-			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_status_list')
+			  $http.get(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/get_status_list')
 			  .success(function(response) {
 				  $scope.statuses=response;
 			  	 deferred.resolve(response);
@@ -101,7 +101,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
         
         $scope.getPriorityList= function(){
 			 var deferred = $q.defer();
-			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_priority_list')
+			  $http.get(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/get_priority_list')
 			  .success(function(response) {
 				  $scope.priorities=response;
 			  	 deferred.resolve(response);
@@ -113,7 +113,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
         
         $scope.getAssigns= function(){
 			 var deferred = $q.defer();
-			  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_users')
+			  $http.get(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/get_all_users')
 			  .success(function(response) {
 				$scope.assigns=response;
 				for(var i=0;i<response.length;i++){
@@ -165,7 +165,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			    return;
 			   }
 
-			   $http.delete('http://localhost:8080/ListProject_10030/Task_Default_Activity/delete_Task/'+row.entity.id)
+			   $http.delete(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/delete_Task/'+row.entity.id)
 			        .success(function (data) {
 			        	$scope.refreshData();
 			        })
@@ -202,7 +202,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		
 		$scope.refreshData= function(){
 			var deferred = $q.defer();
-		 $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_all_Task/'+ListService.listId)
+		 $http.get(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/get_all_Task/'+ListService.listId)
 		  .success(function(response) {
 			  console.log("TASKS  "+angular.toJson(response))
 			  $scope.gridOptions.data=response;
@@ -231,7 +231,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 		//	alert("data to send" + angular.toJson($scope.Task));
 			console.log(JSON.stringify($scope.Task));
 			var deferred = $q.defer();
-			  $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
+			  $http.post(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
 				  alert('Task Saved successfully');
 				  $scope.Task={};
 				  $scope.selectedStatus='';
@@ -250,7 +250,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 			//	alert("data to send" + angular.toJson($scope.Task));
 			//	console.log(JSON.stringify($scope.Task));
 				var deferred = $q.defer();
-				  $http.put('http://localhost:8080/ListProject_10030/Task_Default_Activity/update_Task/', $scope.Task).success(function(response) {
+				  $http.put(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/update_Task/', $scope.Task).success(function(response) {
 					  alert('Task Saved successfully');
 					  $scope.Task={};
 					  $scope.selectedStatus='';
@@ -274,7 +274,7 @@ app.controller("Task_Default_Activity", [ '$scope', '$rootScope', '$location', '
 	        form_data.append('uploadfile', images[0]);
 	        
 	        blockUI.start();
-	        $http.post('http://localhost:8080/ListProject_10030/Task_Default_Activity/uploadFile', form_data, {
+	        $http.post(RestURL.baseURL+'/ListProject_10030/Task_Default_Activity/uploadFile', form_data, {
 	            transformRequest: angular.identity,
 	            headers: {
 	              'Content-Type': undefined
