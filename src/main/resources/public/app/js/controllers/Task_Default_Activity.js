@@ -89,17 +89,7 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
                         $scope.selectedassign = $scope.Task.taskowner;
                         $scope.selectedPriority = $scope.Task.task_priority;
                         $scope.selectedStatus = $scope.Task.task_status;
-                        ListService.taskId = '';
-                        /*$timeout(function () {
-				  $http.get('http://localhost:8080/ListProject_10030/Task_Default_Activity/get_user_by_id/'+$scope.Task.taskowner)
-				  .success(function(response) {
-					  //$scope.users[1] = response;
-					  $scope.selectedassign=response;
-					  console.log("USER"+angular.toJson($scope.selectedassign));
-				  }).error(function(err) {
-				  	 //alert('You got' + err + 'error');
-				  });
-				  }, 500);*/
+                     
                     }).error(function(err) {
                         //alert('You got' + err + 'error');
                     });
