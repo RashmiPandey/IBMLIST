@@ -27,7 +27,7 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             task_priority: '',
             listId: ListService.listId
         };
-
+        $scope.listDatas={};
         $scope.username = authFactory.getUser().firstName;
         $scope.userId = authFactory.getUser().id;
         $scope.Task.dueDate = new Date();
@@ -90,7 +90,7 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
                         $scope.selectedassign = $scope.Task.taskowner;
                         $scope.selectedPriority = $scope.Task.task_priority;
                         $scope.selectedStatus = $scope.Task.task_status;
-                     
+                        
                     }).error(function(err) {
                         //alert('You got' + err + 'error');
                     });
@@ -269,7 +269,11 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
                 $scope.selectedassign = '';
                 $scope.selectedPriority = '';
                 $scope.Task.duedate = '';
-                $location.path('/ListTasks-en');
+                if(ListService.listPage.indexOf('ListTasks-en') > -1){
+                	$location.path('/ListTasks-en');
+                }else{
+                $location.path('/MyTasks-en');
+                }
                 deferred.resolve(response);
             }).error(function(err) {
                 alert('You got' + err + 'error');
@@ -301,8 +305,22 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             });
         }
 
-
-
+        
+        $scope.refreshData= function(){
+    		var deferred = $q.defer();
+    		 $http.get(RestURL.baseURL+'/Master_List_Default_Activity/get_all_list_data')
+    		  .success(function(response) {
+    			 // console.log("DATA "+JSON.stringify(response));
+    			$scope.listDatas=response;
+    		  	 deferred.resolve(response);
+    		  }).error(function(err) {
+    		  	 alert('You got' + err + 'error');
+    		  	 deferred.reject(err);
+    		  });
+    		};
+    		
+    		$scope.refreshData();
+    		
         $scope.uploadFile = function(input, images) {
             var form_data = new FormData();
 

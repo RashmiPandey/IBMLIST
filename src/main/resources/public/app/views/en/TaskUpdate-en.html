@@ -1,4 +1,4 @@
-	<!--
+]	<!--
 	 *
 	 * @author Geppetto Generated Code</br>
 	 * Date Created: </br>
@@ -71,11 +71,18 @@
 	<label style="position: absolute;width: 100px;height: 68px;left: 113px;top: 640px;">Add Attachment</label>
 	<input type="file" accept="image/*" file-upload="images" style="position: absolute;width: 310px;height: 34px;left: 320px;top: 640px;">
 	<img src="{{Task.attachment}}" style="position: absolute;width: 80px;height: 34px;left: 500px;top: 640px;" />
-	<div style="position: absolute;width: 958px;height: 36px;left: 104px;top: 670px;">
+	<div style="position: absolute;width: 958px;height: 36px;left: 104px;top: 750px;">
 		<hr>
 	</div>
-	<button type="submit" class="btn btn-primary" style="position: absolute;left: 300px;top: 746px;" data-ng-click="goBack()">CANCEL</button>
-	<button type="submit" class="btn btn-primary" data-ng-click="update()" style="position: absolute;left: 113px;width: 87px;top: 746px;">UPDATE</button>
+	
+	<label style="position: absolute;height: 34px;left: 112px;top: 690px;line-height: 34px;">Select the list for the task</label>
+	<div style="position: absolute;width: 200px;height: 34px;left: 321px;top: 690px;padding: 5px;"> 
+			<select data-ng-model="Task.listId"
+				data-ng-options="listData.id as listData.title for listData in listDatas" style="width: 100%; padding: 5px;">
+				<option value="">SELECT</option>
+			</select></div>
+	<button type="submit" class="btn btn-primary" style="position: absolute;left: 300px;top: 779px;" data-ng-click="goBack()">CANCEL</button>
+	<button type="submit" class="btn btn-primary" data-ng-click="update()" style="position: absolute;left: 113px;width: 87px;top: 779px;">UPDATE</button>
 
 </form>
 	</div>

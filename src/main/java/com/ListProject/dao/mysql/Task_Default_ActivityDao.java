@@ -226,7 +226,8 @@ public class Task_Default_ActivityDao {
 					.setParameter("groupid", Task.getGroupid())
 					.setParameter("updated_by", user == null ? 0 : user.getId())
 					.setParameter("task_priority", Task.getTask_priority())
-					.setParameter("task_status", Task.getTask_status());
+					.setParameter("task_status", Task.getTask_status())
+					.setParameter("listId", Task.getListId());
 			query.executeUpdate();
 
 			return Task;
