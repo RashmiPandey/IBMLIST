@@ -87,9 +87,8 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
                     .success(function(response) {
                         console.log("RES" + angular.toJson(response));
                         $scope.Task = response;
-                        $scope.selectedassign = $scope.Task.taskowner;
-                        $scope.selectedPriority = $scope.Task.task_priority;
-                        $scope.selectedStatus = $scope.Task.task_status;
+                        //$scope.selectedPriority = $scope.Task.task_priority;
+                        //$scope.selectedStatus = $scope.Task.task_status;
                         
                     }).error(function(err) {
                         //alert('You got' + err + 'error');
@@ -133,30 +132,17 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             $http.get(RestURL.baseURL + '/Task_Default_Activity/get_all_users')
                 .success(function(response) {
                     $scope.assigns = response;
-                    for (var i = 0; i < response.length; i++) {
+                   /* for (var i = 0; i < response.length; i++) {
                         if ($scope.Task.taskowner != '' && $scope.Task.taskowner == response[i].id) {
                             $scope.selectedassign = response[i];
                         }
-                    }
+                    }*/
                     deferred.resolve(response);
                 }).error(function(err) {
                     alert('You got' + err + 'error');
                     deferred.reject(err);
                 });
         }
-
-        $scope.changedstatus = function(item) {
-            $scope.Task.task_status = item;
-        }
-
-        $scope.changedpriority = function(item) {
-            $scope.Task.task_priority = item;
-        }
-
-        $scope.changedassign = function(item) {
-            $scope.Task.taskowner = item.id;
-        }
-
 
         /*function handle_search_result(search_result){
         $scope.gridOptions.data = search_result;
@@ -178,7 +164,11 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             
             $http.delete(RestURL.baseURL + '/Task_Default_Activity/delete_Task/' + row.entity.id)
                 .success(function(data) {
-                    $scope.getListTasks();
+                	 if ($location.path().indexOf('ListTasks-en') > -1) {
+                         $scope.getListTasks();
+                     } else {
+                         $scope.getUserTask();
+                     }
                 })
                 .error(function(data) {
                     console.log("ERROR: " + data);
@@ -265,9 +255,6 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             $http.post(RestURL.baseURL + '/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
                 alert('Task Saved successfully');
                 $scope.Task = {};
-                $scope.selectedStatus = '';
-                $scope.selectedassign = '';
-                $scope.selectedPriority = '';
                 $scope.Task.duedate = '';
                 if(ListService.listPage.indexOf('ListTasks-en') > -1){
                 	$location.path('/ListTasks-en');
@@ -288,9 +275,6 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             $http.put(RestURL.baseURL + '/Task_Default_Activity/update_Task/', $scope.Task).success(function(response) {
                 alert('Task Saved successfully');
                 $scope.Task = {};
-                $scope.selectedStatus = '';
-                $scope.selectedassign = '';
-                $scope.selectedPriority = '';
                 $scope.Task.duedate = '';
                 console.log(ListService.listPage);
                 if(ListService.listPage.indexOf('ListTasks-en') > -1){
