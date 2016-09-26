@@ -37,9 +37,8 @@
 			Type</label>
 		<div
 			style="position: absolute; width: 203px; height: 35px; left: 298px; top: 263px; padding: 5px;">
-			<select data-ng-model="selectedListType"
-				ng-change="changedValue(selectedListType)"
-				data-ng-options="listType for listType in listTypes" style="width: 100%; padding: 5px;">
+			<select data-ng-model="Master_List.listType"
+				data-ng-options="listType as listType for listType in listTypes" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 		</div>

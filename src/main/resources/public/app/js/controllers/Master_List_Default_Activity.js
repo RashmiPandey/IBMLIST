@@ -22,7 +22,7 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		title : '', 
 		description : '', 
 		type : '', 
-		listtype : null,
+		listType : null,
 		listname : '',
 		createdBy:authFactory.getUser().id
 		};
@@ -55,7 +55,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			  $http.get(RestURL.baseURL+'/Master_List_Default_Activity/search_for_update_Master_List/'+ListService.listId)
 			  .success(function(response) {
 				  $scope.Master_List=response;
-				  $scope.selectedListType=response.listType;
 				  ListService.listId='';
 				
 			  }).error(function(err) {
@@ -115,7 +114,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		  var deferred = $q.defer();
 		  $http.post(RestURL.baseURL+'/Master_List_Default_Activity/create_Master_List/', $scope.Master_List).success(function(response) {
 			  $scope.Master_List='';
-			  $scope.selectedListType='';
 			  $scope.getTypeList();
 			  $location.path('/DisplayLists-en');
 		  	 deferred.resolve(response);
@@ -183,7 +181,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 				  $http.put(RestURL.baseURL+'/Master_List_Default_Activity/update_Master_List/', $scope.Master_List).success(function(response) {
 					  alert('Task Saved successfully');
 					 $scope.Master_List='';
-					 $scope.selectedListType='';
 					 $location.path('/DisplayLists-en');
 				  	 deferred.resolve(response);
 				  }).error(function(err) {
@@ -204,10 +201,6 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			  });
 		}
 		
-		 $scope.changedValue=function(item){
-			$scope.Master_List.listType=item;
-		 }  
-		 
 		$scope.getTypeList();
 }]);
 
