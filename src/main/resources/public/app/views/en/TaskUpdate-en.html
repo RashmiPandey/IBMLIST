@@ -34,7 +34,7 @@
 	
 	<select data-ng-model="selectedassign"
 				ng-change="changedassign(selectedassign)"
-				data-ng-options="assign.username for assign in assigns" style="width: 100%; padding: 5px;">
+				data-ng-options="assign as assign.username for assign in assigns" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 	</div>
@@ -43,7 +43,7 @@
 	<div style="position: absolute;width: 200px;height: 34px;left: 320px;top: 369px;padding: 5px;">
 	<select data-ng-model="selectedStatus"
 				ng-change="changedstatus(selectedStatus)"
-				data-ng-options="status for status in statuses" style="width: 100%; padding: 5px;">
+				data-ng-options="status as status for status in statuses" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 	</div>
@@ -51,7 +51,7 @@
 	<div style="position: absolute;width: 200px;height: 34px;left: 321px;top: 433px;padding: 5px;">
 	<select data-ng-model="selectedPriority"
 				ng-change="changedpriority(selectedPriority)"
-				data-ng-options="priority for priority in priorities" style="width: 100%; padding: 5px;">
+				data-ng-options="priority as priority for priority in priorities" style="width: 100%; padding: 5px;">
 				<option value="">SELECT</option>
 			</select>
 	</div>

@@ -14,7 +14,7 @@
 */
 app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService', '$timeout', 'blockUI', 'authFactory', 'RestURL',
     function($scope, $rootScope, $location, $window, $q, $http, ListService, $timeout, blockUI, authFactory, RestURL) {
-
+		
         $scope.Task = {
             id: '',
             title: '',
@@ -30,16 +30,17 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
 
         $scope.username = authFactory.getUser().firstName;
         $scope.userId = authFactory.getUser().id;
-        $scope.DueDate = '';
+        $scope.Task.dueDate = new Date();
         $scope.popupDueDate = {
             opened: false
         };
+        
         $scope.dateOptions = {
-            formatYear: 'dd',
+            formatYear: 'YY',
             startingDay: 1
         };
 
-        $scope.openStartdate = function() {
+        $scope.openDuedate = function() {
             $scope.popupDueDate.opened = true;
         };
         $scope.users = [];
@@ -163,6 +164,7 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
 
         $scope.editRow = function(grid, row) {
             ListService.taskId = row.entity.id;
+            ListService.listPage=$location.absUrl();
             $location.path('/TaskUpdate-en');
         }
 
@@ -173,6 +175,7 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
                 return;
             }
 
+            
             $http.delete(RestURL.baseURL + '/Task_Default_Activity/delete_Task/' + row.entity.id)
                 .success(function(data) {
                     $scope.getListTasks();
@@ -187,7 +190,8 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             '<img src={{row.entity.attachment}}/>' +
             '</div>';
 
-        $scope.actionButtons = '<div style="text-align:center;"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
+        $scope.authId = authFactory.getUser().id ;
+        $scope.actionButtons = '<div style="text-align:center;" data-ng-show="grid.appScope.authId == row.entity.username.id"><button class="btn btn-success btn-sm" ng-click="grid.appScope.editRow(grid,row)" style="margin:2px;">' +
             '<i class="fa"></i>' +
             'edit</button>' +
             '<button class="btn btn-danger btn-sm" ' +
@@ -284,7 +288,12 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
                 $scope.selectedassign = '';
                 $scope.selectedPriority = '';
                 $scope.Task.duedate = '';
-                $location.path('/ListTasks-en');
+                console.log(ListService.listPage);
+                if(ListService.listPage.indexOf('ListTasks-en') > -1){
+                	$location.path('/ListTasks-en');
+                }else{
+                $location.path('/MyTasks-en');
+                }
                 deferred.resolve(response);
             }).error(function(err) {
                 alert('You got' + err + 'error');

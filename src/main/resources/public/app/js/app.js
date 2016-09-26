@@ -13,7 +13,7 @@
  *
 */
 
-var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','rzModule','ui.bootstrap','facebook','ngCookies','blockUI']);
+var app = angular.module('ListProject', ['ngRoute','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','ui.grid','ui.grid.selection','rzModule','ngAnimate','ui.bootstrap','facebook','ngCookies','blockUI']);
 
    // configure our routes
    app.config(['$routeProvider','FacebookProvider',function($routeProvider,FacebookProvider) {

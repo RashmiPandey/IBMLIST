@@ -50,6 +50,20 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 			$location.path('/MasterListUpdate-en');
 		}
 		
+		$scope.updateMasterList= function(){
+		if($scope.Master_List.id == ''){
+			  $http.get(RestURL.baseURL+'/Master_List_Default_Activity/search_for_update_Master_List/'+ListService.listId)
+			  .success(function(response) {
+				  $scope.Master_List=response;
+				  $scope.selectedListType=response.listType;
+				  ListService.listId='';
+				
+			  }).error(function(err) {
+			  	 //alert('You got' + err + 'error');
+			  });
+	    	}
+		}
+		
 		$scope.deleteRow = function(grid,row){
 			   if(!confirm('Are you sure you want to delete ?')){ 
 				    return;
@@ -67,18 +81,9 @@ app.controller("Master_List_Default_Activity", [ '$scope', '$rootScope', '$locat
 		
 		
 		 $scope.init=function(){
-		    	
-		    	if($scope.Master_List.id == ''){
-				  $http.get(RestURL.baseURL+'/Master_List_Default_Activity/search_for_update_Master_List/'+ListService.listId)
-				  .success(function(response) {
-					  $scope.Master_List=response;
-					  $scope.selectedListType=response.listType;
-					  ListService.listId='';
-					
-				  }).error(function(err) {
-				  	 //alert('You got' + err + 'error');
-				  });
-		    	}
+			 if ($location.path().indexOf('MasterListUpdate-en') > -1) {
+				 $scope.updateMasterList();
+	          }
 		    }
 
 		 $scope.init();

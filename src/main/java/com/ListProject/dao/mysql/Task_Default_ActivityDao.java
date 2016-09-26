@@ -224,8 +224,9 @@ public class Task_Default_ActivityDao {
 					.setParameter("completionpercentage", Task.getCompletionpercentage())
 					.setParameter("attachment", Task.getAttachment())
 					.setParameter("groupid", Task.getGroupid())
-					.setParameter("updated_by", user == null ? 0 : user.getId());
-
+					.setParameter("updated_by", user == null ? 0 : user.getId())
+					.setParameter("task_priority", Task.getTask_priority())
+					.setParameter("task_status", Task.getTask_status());
 			query.executeUpdate();
 
 			return Task;
