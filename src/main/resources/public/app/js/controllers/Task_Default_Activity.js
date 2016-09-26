@@ -52,18 +52,24 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             enableSelectAll: false,
             rowHeight: 50
         };
+        $scope.disableMasterList=false;
         $scope.init = function() {
-            if ($location.path().indexOf('ListTasks-en') > -1) {
-                $scope.getListTasks();
-            }else if ($location.path().indexOf('TaskUpdate-en') > -1) {
-                $scope.getTaskDetail();
-            } else {
-                $scope.getUserTask();
-            }
-            $scope.getStatusList();
+        	$scope.getStatusList();
             $scope.getPriorityList();
             $scope.getAssigns();
-            //$scope.accessThroughId(); 
+            if ($location.path().indexOf('ListTasks-en') > -1) {
+            	$scope.getListTasks();
+            }else if ($location.path().indexOf('TaskCreate-en') > -1) {
+            	if(ListService.listId!=null && ListService.listId!=''){
+            		 $scope.disableMasterList=true;
+            	}
+            }else if ($location.path().indexOf('TaskUpdate-en') > -1) {
+                $scope.getTaskDetail();
+            }
+            else {
+                $scope.getUserTask();
+                ListService.listId=null;
+            }
         }
 
         $scope.getUserTask = function() {
