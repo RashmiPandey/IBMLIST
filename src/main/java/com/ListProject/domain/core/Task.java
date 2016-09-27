@@ -103,7 +103,7 @@ public class Task {
 	
 	@ApiModelProperty(value = "description", required = true)
 	@Column
-	Date Duedate;
+	Date duedate;
 
 	@ApiModelProperty(value = "description", required = true)
 	@Column
@@ -174,14 +174,6 @@ public class Task {
 		return Description;
 	}
 
-	public Date getDuedate() {
-		return Duedate;
-	}
-
-	public void setDuedate(Date duedate) {
-		Duedate = duedate;
-	}
-
 	public void setCompletionpercentage(long Completionpercentage) {
 		this.Completionpercentage = Completionpercentage;
 	}
@@ -245,4 +237,13 @@ public class Task {
 	public void setTaskOwnerUser(GpUser taskOwnerUser) {
 		this.taskOwnerUser = taskOwnerUser;
 	}
+
+	public Date getDuedate() {
+		return duedate;
+	}
+
+	public void setDuedate(Date duedate) {
+		this.duedate = duedate;
+	}
+	
 }

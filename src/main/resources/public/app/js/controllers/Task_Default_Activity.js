@@ -12,8 +12,8 @@
  *
  *
 */
-app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$window', '$q', '$http', 'ListService', '$timeout', 'blockUI', 'authFactory', 'RestURL',
-    function($scope, $rootScope, $location, $window, $q, $http, ListService, $timeout, blockUI, authFactory, RestURL) {
+app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$filter' ,'$location', '$window', '$q', '$http', 'ListService', '$timeout', 'blockUI', 'authFactory', 'RestURL',
+    function($scope, $rootScope,$filter,$location, $window, $q, $http, ListService, $timeout, blockUI, authFactory, RestURL) {
 		
         $scope.Task = {
             id: '',
@@ -30,7 +30,6 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
         $scope.listDatas={};
         $scope.username = authFactory.getUser().firstName;
         $scope.userId = authFactory.getUser().id;
-        $scope.Task.dueDate = new Date();
         $scope.popupDueDate = {
             opened: false
         };
@@ -45,6 +44,8 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
         $scope.openDuedate = function() {
             $scope.popupDueDate.opened = true;
         };
+        
+        
         $scope.users = [];
         $scope.statuses = '';
         $scope.priorities = '';
@@ -84,19 +85,12 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
         }
 
 
-        /* if (ListService.taskId != null || ListService.taskId != '') {
-             console.log("ListService.taskIdListService.taskIdListService.taskIdListService.taskId " + ListService.taskId)
-             
-         }*/
-
-        $scope.getTaskDetail = function() {
+         $scope.getTaskDetail = function() {
             if ($scope.Task.id == '') {
                 $http.get(RestURL.baseURL + '/Task_Default_Activity/get_task_by_id/' + ListService.taskId)
                     .success(function(response) {
-                        console.log("RES" + angular.toJson(response));
                         $scope.Task = response;
-                        //$scope.selectedPriority = $scope.Task.task_priority;
-                        //$scope.selectedStatus = $scope.Task.task_status;
+                        $scope.Task.duedate=$filter( 'date' )( $scope.Task.duedate, 'dd/MM/yyyy' );
                         
                     }).error(function(err) {
                         //alert('You got' + err + 'error');
@@ -134,6 +128,17 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
                     deferred.reject(err);
                 });
         }
+        
+        $scope.formatString = function( format ) {
+            if(format === undefined || format ===null ||  format=='' ) {
+             return;
+            }
+            var day   = parseInt( format.substring( 0, 2 ) );
+            var month  = parseInt( format.substring( 3, 5 ) );
+            var year   = parseInt( format.substring( 6, 10 ) );
+            var date = new Date( year, month-1, day );
+            return date;
+           };
 
         $scope.getAssigns = function() {
             var deferred = $q.defer();
@@ -234,7 +239,6 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             var deferred = $q.defer();
             $http.get(RestURL.baseURL + '/Task_Default_Activity/get_all_Task/' + ListService.listId)
                 .success(function(response) {
-                    console.log("TASKS  " + angular.toJson(response))
                     $scope.gridOptions.data = response;
                     deferred.resolve(response);
                 }).error(function(err) {
@@ -257,13 +261,11 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
 
 
         $scope.create = function() {
-            //	alert("data to send" + angular.toJson($scope.Task));
-            console.log(JSON.stringify($scope.Task));
+            $scope.Task.duedate = new Date( $scope.formatString( $filter( 'date' )(  $scope.Task.duedate, 'dd/MM/yyyy' ) ) );
             var deferred = $q.defer();
             $http.post(RestURL.baseURL + '/Task_Default_Activity/create_Task/', $scope.Task).success(function(response) {
                 alert('Task Saved successfully');
                 $scope.Task = {};
-                $scope.Task.duedate = '';
                 if(ListService.listPage.indexOf('ListTasks-en') > -1){
                 	$location.path('/ListTasks-en');
                 }else{
@@ -277,14 +279,11 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
         }
 
         $scope.update = function() {
-            //	alert("data to send" + angular.toJson($scope.Task));
-            //	console.log(JSON.stringify($scope.Task));
-            var deferred = $q.defer();
+        	 $scope.Task.duedate = new Date( $scope.formatString( $filter( 'date' )(  $scope.Task.duedate, 'dd/MM/yyyy' ) ) );
+             var deferred = $q.defer();
             $http.put(RestURL.baseURL + '/Task_Default_Activity/update_Task/', $scope.Task).success(function(response) {
-                alert('Task Saved successfully');
+                alert('Task updated successfully');
                 $scope.Task = {};
-                $scope.Task.duedate = '';
-                console.log(ListService.listPage);
                 if(ListService.listPage.indexOf('ListTasks-en') > -1){
                 	$location.path('/ListTasks-en');
                 }else{
@@ -302,7 +301,6 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
     		var deferred = $q.defer();
     		 $http.get(RestURL.baseURL+'/Master_List_Default_Activity/get_all_list_data')
     		  .success(function(response) {
-    			 // console.log("DATA "+JSON.stringify(response));
     			$scope.listDatas=response;
     		  	 deferred.resolve(response);
     		  }).error(function(err) {
@@ -316,7 +314,6 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
         $scope.uploadFile = function(input, images) {
             var form_data = new FormData();
 
-            console.log('yaaaay', images);
             form_data.append('uploadfile', images[0]);
 
             blockUI.start();

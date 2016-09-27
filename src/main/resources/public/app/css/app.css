@@ -807,3 +807,9 @@ width: 100%;
 text-align: center;
 z-index: 1000;
 }
+
+#wrapper {
+  font: 20px Calibri;
+  width: 100px;
+  margin: 0 auto;
+}

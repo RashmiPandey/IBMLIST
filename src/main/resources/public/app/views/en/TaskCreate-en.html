@@ -55,12 +55,7 @@
 	
 	<label style="position: absolute;height: 34px;left: 112px;top: 484px;line-height: 34px;">Due Date</label>
 	<div style="position: absolute;width: 200px;height: 34px;left: 321px;top: 499px;padding: 5px;"> 
-			<input type="text"
-			uib-datepicker-popup="{{format}}" data-ng-model="Task.duedate"
-			data-ng-value="Task.duedate"
-			data-is-open="popupDueDate.opened"
-			data-datepicker-options="dateOptions" data-ng-readonly="true"
-			data-ng-click="openDuedate()"/>	</div>
+	<input type="text" data-ng-readonly="true" data-ng-model="Task.duedate"  datepicker=""/>	</div>
 	
 	<label style="position: absolute;width: 100px;height: 68px;left: 113px;top: 545px;line-height: 68px;">% completed</label>
 	<input type="text" data-ng-model="Task.completionpercentage" style="position: absolute;width: 204px;height: 34px;left: 320px;top: 575px;" class="form-control" />
