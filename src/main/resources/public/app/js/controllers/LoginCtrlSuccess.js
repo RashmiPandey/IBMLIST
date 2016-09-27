@@ -4,8 +4,8 @@
  *
  */
 
-app.controller('LoginCtrlSuccess', ['Facebook','$modal','$log', '$scope', '$http', '$location', '$cookieStore', 'RestURL','authFactory',
-    function (Facebook,$modal, $log, $scope, $http, $location, $cookieStore, RestURL,authFactory) {
+app.controller('LoginCtrlSuccess', ['$log', '$scope', '$http', '$location','authFactory',
+    function ($log, $scope, $http, $location ,authFactory) {
 
         var self = $scope;
         authFactory.global.loggedIn = true;

@@ -8,7 +8,7 @@ app.controller('LoginCtrl', ['Facebook','$modal','$log', '$scope', '$http', '$lo
     function (Facebook,$modal, $log, $scope, $http, $location, $cookieStore, RestURL,authFactory) {
 
         var self = $scope;
-
+       
         self.user = {};
         self.init = function () {
             $log.log('Initializing login controller!');

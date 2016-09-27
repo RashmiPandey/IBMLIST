@@ -19,7 +19,7 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
             id: '',
             title: '',
             taskowner: '',
-            duedate: null,
+            duedate: '',
             completionpercentage: 0,
             attachment: '',
             groupid: '',
@@ -36,9 +36,11 @@ app.controller("Task_Default_Activity", ['$scope', '$rootScope', '$location', '$
         };
         
         $scope.dateOptions = {
-            formatYear: 'YY',
+            formatYear: 'yy',
             startingDay: 1
         };
+        
+        $scope.format = 'dd/MM/yyyy';
 
         $scope.openDuedate = function() {
             $scope.popupDueDate.opened = true;
